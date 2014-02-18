@@ -3,17 +3,17 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.phonegap.hello-world"
-        version   = "1.0.0">
+        id        = "cz.inited.eyrie"
+        version   = "1.0.1">
 
-    <name>Hello World</name>
+    <name>Eyrie</name>
 
     <description>
-        Hello World sample application that responds to the deviceready event.
+        Eyrie app
     </description>
 
-    <author href="http://phonegap.com" email="support@phonegap.com">
-        PhoneGap Team
+    <author href="http://inited.cz" email="info@inited.cz">
+        INITED Solutions s.r.o.
     </author>
 
     <!--
@@ -39,7 +39,7 @@
 
     <!-- Plugins -->
 
-    <!-- Core plugins -->
+    <!-- Core plugins
     <gap:plugin name="org.apache.cordova.battery-status" />
     <gap:plugin name="org.apache.cordova.camera" />
     <gap:plugin name="org.apache.cordova.media-capture" />
@@ -58,6 +58,7 @@
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
+ 	-->
 
     <!-- Third party plugins -->
     <!-- A list of available plugins are available at https://build.phonegap.com/plugins -->
@@ -66,6 +67,22 @@
     -->
 
     <!-- Define app icon for each platform. -->
+    <icon src="icon/icon128x128.png" />
+    <icon src="icon/icon36x36.png"   gap:platform="android"    gap:density="ldpi" />
+    <icon src="icon/icon48x48.png"   gap:platform="android"    gap:density="mdpi" />
+    <icon src="icon/icon72x72.png"   gap:platform="android"    gap:density="hdpi" />
+    <icon src="icon/icon96x96.png"   gap:platform="android"    gap:density="xhdpi" />
+    <icon src="icon/icon57x57.png"   gap:platform="ios"        width="57" height="57" />
+    <icon src="icon/icon72x72.png"   gap:platform="ios"        width="72" height="72" />
+    <icon src="icon/icon114x114.png" gap:platform="ios"        width="114" height="114" />
+    <icon src="icon/icon144x144.png" gap:platform="ios"        width="144" height="144" />
+<!--    
+    <icon src="icon/icon80x80.png"     gap:platform="blackberry" />
+    <icon src="icon/icon80x80.png"     gap:platform="blackberry" gap:state="hover"/>
+    <icon src="icon/icon64x64.pngres/icon/webos/icon-64.png"          gap:platform="webos" />
+    <icon src="icon/icon48x48.pngres/icon/windows-phone/icon-48.png"  gap:platform="winphone" />
+    <icon src="icon/icon36x36.pngres/icon/windows-phone/icon-173.png" gap:platform="winphone"   gap:role="background" />
+
     <icon src="icon.png" />
     <icon src="res/icon/android/icon-36-ldpi.png"   gap:platform="android"    gap:density="ldpi" />
     <icon src="res/icon/android/icon-48-mdpi.png"   gap:platform="android"    gap:density="mdpi" />
@@ -80,6 +97,8 @@
     <icon src="res/icon/webos/icon-64.png"          gap:platform="webos" />
     <icon src="res/icon/windows-phone/icon-48.png"  gap:platform="winphone" />
     <icon src="res/icon/windows-phone/icon-173.png" gap:platform="winphone"   gap:role="background" />
+-->
+
 
     <!-- Define app splash screen for each platform. -->
     <gap:splash src="res/screen/android/screen-ldpi-portrait.png"  gap:platform="android" gap:density="ldpi" />
