@@ -101,6 +101,16 @@
 
 
     <!-- Define app splash screen for each platform. -->
+    <gap:splash src="splash/splash200x320.png"  gap:platform="android" gap:density="ldpi" />
+    <gap:splash src="splash/splash320x480.png"  gap:platform="android" gap:density="mdpi" />
+    <gap:splash src="splash/splash480x800.png"  gap:platform="android" gap:density="hdpi" />
+    <gap:splash src="splash/splash720x1280.png" gap:platform="android" gap:density="xhdpi" />
+    <gap:splash src="splash/splash320x480.png"  gap:platform="ios"     width="320" height="480" />
+    <gap:splash src="splash/splash640x960.png"  gap:platform="ios"     width="640" height="960" />
+    <gap:splash src="splash/splash768x1004.png" gap:platform="ios"     width="768" height="1024" />
+    <gap:splash src="splash/splash1024x783.png" gap:platform="ios"     width="1024" height="768" />
+
+    <!--
     <gap:splash src="res/screen/android/screen-ldpi-portrait.png"  gap:platform="android" gap:density="ldpi" />
     <gap:splash src="res/screen/android/screen-mdpi-portrait.png"  gap:platform="android" gap:density="mdpi" />
     <gap:splash src="res/screen/android/screen-hdpi-portrait.png"  gap:platform="android" gap:density="hdpi" />
@@ -111,8 +121,7 @@
     <gap:splash src="res/screen/ios/screen-ipad-portrait.png"      gap:platform="ios"     width="768" height="1024" />
     <gap:splash src="res/screen/ios/screen-ipad-landscape.png"     gap:platform="ios"     width="1024" height="768" />
     <gap:splash src="res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone" />
-
-    <!--
+    
         Define access to external domains.
 
         <access />            - a blank access tag denies access to all external resources.
