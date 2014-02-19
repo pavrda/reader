@@ -23,21 +23,127 @@
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
+        <title>EYRIE reader</title>
+        <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
     </head>
     <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
+
+<script type="text/javascript">
+
+var oRubriky = [
+	{id:"oEyrie", title:"O Eyrie"},
+	{id:"naseSluzby", title:"Naše služby"},
+	{id:"proInspiraci", title:"Pro inspiraci"},
+	{id:"doporucujeme", title:"Doporučujeme"},
+	{id:"osobnosti", title:"Osobnosti v Eyrie"},
+	{id:"kontakt", title:"Kontakt"}
+];
+
+var oClanky = {
+	"oEyrie": [
+		{
+			id:"centrumModernihoPodnikani",
+			title:"Centrum moderního podnikání",
+			icon:"centrumModernihoPodnikani.jpg",
+			path:"centrumModernihoPodnikani.html",
+			date:"2014-01-28 14:45:00"
+		}, {
+			id:"pribehEyrie",
+			title:"Příběh Eyrie",
+			icon:"centrumModernihoPodnikani.jpg",
+			path:"pribehEyrie.html",
+			date:"2014-01-28 14:45:00"
+		}
+	]
+};
+
+var actualCategory;
+	
+var sTexty = "texty/";
+
+function showRubriky() {
+	var divRubriky = document.getElementById("navRubriky");
+	divRubriky.style.display = (divRubriky.style.display == "block")?"none":"block";
+}
+
+
+function renderClanky() {
+	var s = '';
+	for(t in oClanky[actualCategory]) {
+		var n = oClanky[actualCategory][t];
+		s += '<div class="clanek">';
+		s += '<a href="#' + n.id + '">';
+		s += '<img src="texty/' + n.icon + '" class="imgClanek" />';
+		s += n.title;
+		s += '</a>';
+		s += '<p class="pDatum">' + n.date + '</p>';
+		s += '</div>';
+	}
+	$('#divContent').html(s);	
+}
+
+function goRubrika(rid) {
+	for(t in oRubriky) {
+		if (oRubriky[t].id == rid) {
+			$('#divActualCategory').html(oRubriky[t].title);
+			actualCategory = rid;
+			renderClanky();
+			return;
+		}
+	}	
+	
+	
+}
+
+
+function goHash() {
+	var s = location.hash;
+	if (s.length<1) s="#oEyrie";
+	s = s.substr(1);
+	for(t in oRubriky) {
+		if (oRubriky[t].id == s) return goRubrika(s);
+	}
+//	alert(sTexty + s + '.html');
+	$('#divContent').load(sTexty + s + '.html');
+}
+
+function renderRubriky() {
+	var s = '';
+	for(t in oRubriky) {
+		s += '<a href="#' + oRubriky[t].id + '">' + oRubriky[t].title + '</a>';
+	}
+	$('#navRubriky').html(s);
+}
+
+$(document).ready(function() {
+	$('#divActualCategory').on('click', showRubriky);	
+	$(window).bind( 'hashchange', goHash );
+	renderRubriky();
+	goHash();
+})
+
+
+
+</script>
+    
+    
+        <div class="main">
+        	<div class="header">
+        		<div class="nav headerBlock" id="divActualCategory">
+        		</div>
+        		<div class="logo headerBlock">
+        			<a href="#"><img src="img/logo64.png" height="32" /></a>
+        		</div>
+        	</div>
+        	<div class="rubriky" id="navRubriky">
+        	</div>
+        	<div class="contentContainer" id="divContent">
+        	</div>
         </div>
         <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
         </script>
-        Ahoj Pavrdo, ses borec!!!
     </body>
 </html>
