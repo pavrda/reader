@@ -37,7 +37,7 @@ body {
     );
     xbackground-attachment:fixed;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
+    font-size:12pt;
     height:100%;
     margin:0px;
     padding:0px;
@@ -69,6 +69,7 @@ body {
     }
 }
 
+/*
 h1 {
     font-size:24px;
     font-weight:normal;
@@ -77,6 +78,7 @@ h1 {
     padding:0px;
     text-align:center;
 }
+*/
 
 .event {
     border-radius:4px;
@@ -116,7 +118,7 @@ h1 {
 
 .headerBlock {
 	display: inline-block;
-	padding: 5px 5px 5px 4px;
+	padding: 5px 2em 5px 0.5em;
 	min-height: 3ex;
 	min-width: 3ex;
 }
@@ -125,27 +127,47 @@ h1 {
 	float: right;
 	color: #ffffff;
 	font-weight: bold;
-	font-size: 200%;	
+	font-size: 150%;	
 }
 
 .header {
 	background-color: #004167;
+	background-image: -webkit-linear-gradient(#004167, #001d3b);
+	background-image: -moz-linear-gradient(#004167, #001d3b);
+	background-image: -o-linear-gradient(#004167, #001d3b);
+	background-image: linear-gradient(#004167, #001d3b);
 }
 
+#divActualCategory:after {
+	content: "";
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 10px solid white;
+	position: absolute;
+	top: 15px;
+	right: 1ex;
+}
+
+
 div.rubriky {
-	width: 100%;
-	background: #808080;
+	background: #001d3b;
+	position: absolute;
+	width: 10em;
+	right: 0px;
 	display: none;
+	font-size: 150%;
+	font-weight: bold;
 }
 
 .rubriky a {
-	border: solid 1px black;
+	border-bottom: solid 1px black;
 	display: inline-block;
-	width: 20ex;
-	height: 5ex;
+	width: 8em;
+	min-height: 3ex;
 	color: white;
 	text-decoration: none;
-	text-align: center;
+	text-align: right;
+	padding-top: 5px;
 }
 
 div.clanek {
@@ -165,4 +187,19 @@ div.clanek {
 
 p.pDatum {
 	margin: 0px 0px 0px 0px;
+}
+
+div.category {
+	margin-top: 0.5em;
+	margin-left: 0.5em;
+	margin-right: 1em;
+	xfont-size: 150%;
+}
+
+div.category img {
+	margin-right: 0.5em;
+}
+
+.divArticle {
+	margin: 0.5em 0.5em 0.5em 0.5em;
 }
