@@ -32,8 +32,9 @@ $('document').ready(function() {
 	$('.contentContainer').click(function () {
 		$('#navRubriky').hide();
 	});
-	
+
 });
+
 
 
 </script>
@@ -45,7 +46,7 @@ $('document').ready(function() {
         		</div>
         	</div>
         	<div class="rubriky" id="navRubriky" ng-controller="CategoryListCtrl" >
-       			<a ng-repeat="category in categories" href="#{{category.id}}" >{{category.title}}</a>
+       			<a ng-repeat="category in categories" href="#{{category.id}}" ><span>{{category.title}}</span></a>
         	</div>
         	<div class="contentContainer" id="divContent"></div>
         	<div ng-view></div>

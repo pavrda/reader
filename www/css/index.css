@@ -118,7 +118,7 @@ h1 {
 
 .headerBlock {
 	display: inline-block;
-	padding: 5px 2em 5px 0.5em;
+	padding: 7px 2em 0px 0.5em;
 	min-height: 3ex;
 	min-width: 3ex;
 }
@@ -144,7 +144,7 @@ h1 {
 	border-right: 10px solid transparent;
 	border-top: 10px solid white;
 	position: absolute;
-	top: 15px;
+	top: 17px;
 	right: 1ex;
 }
 
@@ -152,7 +152,7 @@ h1 {
 div.rubriky {
 	background: #001d3b;
 	position: absolute;
-	width: 10em;
+	width: 8em;
 	right: 0px;
 	display: none;
 	font-size: 150%;
@@ -162,12 +162,21 @@ div.rubriky {
 .rubriky a {
 	border-bottom: solid 1px black;
 	display: inline-block;
-	width: 8em;
 	min-height: 3ex;
 	color: white;
 	text-decoration: none;
 	text-align: right;
 	padding-top: 5px;
+	
+	width: 100%;
+	background-color: #004167;
+	background-image: -webkit-linear-gradient(#004167, #001d3b);	
+}
+
+
+
+.rubriky a span {
+	margin-right: 1ex;
 }
 
 div.clanek {
@@ -200,6 +209,70 @@ div.category img {
 	margin-right: 0.5em;
 }
 
+div.articleItem a {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+div.articleItem a:link {
+	color:#004167;
+	}
+	
+xdiv.articleItem a:visited {
+	color:#00FF00;
+	}
+
+
+
+div.articleItem hr {
+	border: 0;
+    height: 1px;
+    background: #333;
+    background-image:  -webkit-linear-gradient(left, #ddddff, #0000C0, #ddddff);
+    background-image:    -moz-linear-gradient(left, #ccc, #333, #ccc); 
+    background-image:     -ms-linear-gradient(left, #ccc, #333, #ccc); 
+    background-image:      -o-linear-gradient(left, #ccc, #333, #ccc); 
+}
+
+div.artDate {
+	margin-top: 2ex;
+	font-style: italic;
+}
+
+div.copyright {
+	width: 100%;
+	text-align: center;
+	color: #004167;
+}
+
+
 .divArticle {
 	margin: 0.5em 0.5em 0.5em 0.5em;
+}
+
+
+p.justify {
+	text-align: justify;
+}
+
+p.center {
+	text-align: center;
+	width: 100%;
+}
+
+
+h1.justify, h2.justify {
+	text-align: left;
+}
+
+div.divArticle blockquote {
+	margin: 0px 0px 0px 0px;
+}
+
+
+.img650 {
+	max-width:650px;
+	width:100%;
+	vertical-align: middle;
+	margin: 20px;
 }

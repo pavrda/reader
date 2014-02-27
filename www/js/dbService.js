@@ -22,7 +22,7 @@ readerApp.factory('dbService', ['$http', function($http) {
 	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (6, 'kontakt', 'Kontakt')");
 	    
 	    tx.executeSql('DROP TABLE IF EXISTS article');
-	    tx.executeSql('CREATE TABLE IF NOT EXISTS article (id unique, poradi unique, category_id, title, txt)');
+	    tx.executeSql('CREATE TABLE IF NOT EXISTS article (id unique, poradi unique, category_id, title, txt, image)');
 	
 	}
 	
@@ -34,12 +34,19 @@ readerApp.factory('dbService', ['$http', function($http) {
 		s = sa[sa.length-1];
 		var sid = s;
 		s = 'texty/' + s;
+
+		var image = loader[loaderCounter].image;
+		
 		
 	    $http({method: 'GET', url: s}).
 	    success(function(data, status, headers, config) {
 	    	var i = data.indexOf('<article class="text">');
 	    	var j = data.indexOf('   <span class="clear-box"></span>');
 	    	var txt = data.substring(i + 24,j);
+	    	
+	    	txt = txt.replace("/files/uploads/pro%20inspiraci/", "texty/");
+	    	txt = txt.replace("/files/uploads/", "texty/");
+	    	
 	    	
 	    	i = data.indexOf('<title>');
 	    	j = data.indexOf('</title>');
@@ -53,7 +60,7 @@ readerApp.factory('dbService', ['$http', function($http) {
 //		    alert('good:' + title);
 
 		    db.transaction(function (tx) {
-		    	tx.executeSql('INSERT INTO article (poradi, category_id, id, title, txt) VALUES (?,?,?,?,?)', [loaderCounter, category, sid, title, txt]);
+		    	tx.executeSql('INSERT INTO article (poradi, category_id, id, title, txt, image) VALUES (?,?,?,?,?,?)', [loaderCounter, category, sid, title, txt, image]);
 		    	loaderCounter ++;
 		    	stahni();
 		    });

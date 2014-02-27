@@ -33,7 +33,7 @@ readerApp.controller('CategoryCtrl', [
 		$scope.init = function() {
 			dbService.transaction(function(tx) {
 				tx.executeSql(
-						'SELECT id,title FROM article WHERE category_id=?',
+						'SELECT id,title,image FROM article WHERE category_id=?',
 						[ $routeParams.catId ], querySuccess,
 						dbService.errorDB);
 			}, dbService.errorDB);
