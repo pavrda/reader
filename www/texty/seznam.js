@@ -18,7 +18,7 @@ var loader = [
 "url":"http://www.eyrie.cz/workshopy-a-seminare/manager-challenge-centrum-33.html"
 }, {
 "category":"poradenstvi-a-sluzby",
-"image":"clanek.jpg",
+"image":"mep-icon.jpg",
 "url":"http://www.eyrie.cz/poradenstvi-a-sluzby/mep-management-employment-potential-34.html"
 }, {
 "category":"poradenstvi-a-sluzby",
@@ -40,29 +40,29 @@ var loader = [
 
 }, {
 "category":"doporucujeme",
-"image":"clanek.jpg",
+"image":"curling-icon.jpg",
 "url":"http://www.eyrie.cz/doporucujeme/na-letne-vyrostl-originalni-olympijsky-park.html"
 }, {
 "category":"doporucujeme",
-"image":"clanek.jpg",
+"image":"lyzovani-icon.jpg",
 "url":"http://www.eyrie.cz/doporucujeme/v-chuchli-se-otevrel-areal-pro-bezecke-lyzovani.html"
 }, {
 "category":"doporucujeme",
-"image":"clanek.jpg",
+"image":"certovka-icon.jpg",
 "url":"http://www.eyrie.cz/doporucujeme/zimni-plavby-prazskymi-benatkami.html"
 
 
 }, {
 "category":"osobnosti",
-"image":"clanek.jpg",
+"image":"Michl-icon.jpg",
 "url":"http://www.eyrie.cz/workshopy-a-seminare/co-muzeme-ocekavat-v-ceske-ekonomice-v-roce-2014.html"
 }, {
 "category":"osobnosti",
-"image":"clanek.jpg",
+"image":"Štepanka-duchkova-icon.jpg",
 "url":"http://www.eyrie.cz/workshopy-a-seminare/pozvali-vas-aneb-zasady-vystoupeni-pred-kamerou.html"
 }, {
 "category":"osobnosti",
-"image":"clanek.jpg",
+"image":"Křivánek-icon.png",
 "url":"http://www.eyrie.cz/workshopy-a-seminare/stihle-mysleni-ve-vyrobe-i-administrative.html"
 }
 ];

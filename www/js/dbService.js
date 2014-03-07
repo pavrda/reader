@@ -1,19 +1,26 @@
 
-readerApp.factory('dbService', ['$http', function($http) {
+readerApp.factory('dbService', ['$http', '$route', '$q', '$timeout', function($http, $route, $q, $timeout) {
 
 	var loaderCounter = 0;
 	
     var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
 	db.errorDB = function(tx, err) {
-	    alert("Error processing SQL: " + err.message);
+		if (err && err.message) {
+		    alert("Error processing SQL: " + err.message);
+		} else {
+		    alert("Error processing SQL: " + tx);
+		}
 	};
     
     
-    db.transaction(populateDB, function (err) {}, successDB);
+//    db.transaction(populateDB, function (err) {}, successDB);
+    db.transaction(populateDB, stazeno, successDB);
 	
 	function populateDB(tx) {
 	    tx.executeSql('DROP TABLE IF EXISTS category');
 	    tx.executeSql('CREATE TABLE category (poradi unique, id unique, title)');
+		$('#preLoaderDiv').show();
+
 	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (1, 'o-nas', 'O Eyrie')");
 	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (2, 'poradenstvi-a-sluzby', 'Naše služby')");
 	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (3, 'pro-inspiraci', 'Pro inspiraci')");
@@ -44,6 +51,7 @@ readerApp.factory('dbService', ['$http', function($http) {
 	    	var j = data.indexOf('   <span class="clear-box"></span>');
 	    	var txt = data.substring(i + 24,j);
 	    	
+	    	txt = txt.replace("/files/uploads/workshopy/", "texty/");
 	    	txt = txt.replace("/files/uploads/pro%20inspiraci/", "texty/");
 	    	txt = txt.replace("/files/uploads/", "texty/");
 	    	
@@ -79,9 +87,11 @@ readerApp.factory('dbService', ['$http', function($http) {
 	}
 
 	function stazeno() {
-		window.location.hash="";
+//		document.getElementById("
+		$('#preLoaderDiv').hide();
+		$route.reload();
+//		window.location.hash="";
 	}
-	
 	
 	
 	return db;

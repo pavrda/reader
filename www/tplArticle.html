@@ -1,1 +1,5 @@
-<div ng-bind-html="htmlContent" class="divArticle"></div>
+<ul rn-carousel rn-carousel-index="articleIndex">
+	<li ng-repeat="article in articles">
+		<div ng-bind-html="article.txt" class="divArticle text"></div>
+	</li>
+</ul>

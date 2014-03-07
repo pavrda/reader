@@ -55,7 +55,7 @@ readerApp.controller('CategoryCtrl', [
 			for (var i = 0; i < len; i++)
 				ta[i] = results.rows.item(i);
 			$scope.categories = ta;
-			$scope.catId = $routeParams.catId;
+			$scope.catId = $routeParams.catId;			
 			$scope.$apply(); // trigger digest
 		}
 
@@ -70,10 +70,10 @@ readerApp.controller('CategoryCtrl', [
 
 		}		
 		$scope.init();
-	
+			
 }]);
 
-readerApp.controller('ArticleCtrl', [ '$scope', '$routeParams', 'dbService',
+readerApp.controller('ArticleCtrl234', [ '$scope', '$routeParams', 'dbService',
 	function($scope, $routeParams, dbService) {
 		
 		$scope.init = function() {
@@ -89,7 +89,7 @@ readerApp.controller('ArticleCtrl', [ '$scope', '$routeParams', 'dbService',
 		function querySuccess(tx, results) {
 			var len = results.rows.length;
 			if (len == 0) {
-				$scope.htmlContent = 'nenalezeno';
+				$scope.htmlContent = '&nbsp;';
 				
 			} else {
 				$scope.htmlContent = results.rows.item(0).txt;
@@ -101,3 +101,42 @@ readerApp.controller('ArticleCtrl', [ '$scope', '$routeParams', 'dbService',
 		
 		
 }]);
+
+readerApp.controller('ArticleCtrl', [ '$scope', '$routeParams', 'dbService', '$q', '$timeout',
+  	function($scope, $routeParams, dbService, $q, $timeout) {
+
+	
+		$scope.articleIndex = 0;
+	
+		
+  		$scope.init = function() {
+  			dbService.transaction(function(tx) {
+  				tx.executeSql(
+  						'SELECT id, txt FROM article WHERE category_id=?',
+  						[ $routeParams.catId ], querySuccess,
+  						dbService.errorDB);
+  			}, dbService.errorDB);
+  		};
+  	
+  		// Query the success callback
+  		function querySuccess(tx, results) {
+  			
+			var len = results.rows.length;
+			var ta = [];
+			var artId = $routeParams.artId;
+			var idx = 0;
+			for (var i = 0; i < len; i++) {
+				ta[i] = results.rows.item(i);
+				if (ta[i].id == artId) { idx = i;}
+			}
+			$scope.articles = ta;
+			$scope.$apply();
+			$scope.articleIndex = idx;
+			$scope.$apply();
+  		}
+
+  		$scope.init();
+
+	}]);
+
+
