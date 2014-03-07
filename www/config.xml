@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "cz.inited.eyrie"
-        version   = "1.0.10">
+        version   = "1.0.11">
 
     <name>Eyrie</name>
 
@@ -39,7 +39,6 @@
     <preference name="android-installLocation"    value="auto" />           <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->
 
     <!-- Plugins -->
-    <gap:plugin name="org.apache.cordova.splashscreen" />
 
 
     <!-- Core plugins

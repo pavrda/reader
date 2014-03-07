@@ -25,7 +25,13 @@
 <script type="text/javascript">
 
 function onDeviceReady() {
-    navigator.splashscreen.hide();
+	alert('hide');
+	try {
+    	navigator.splashscreen.hide();
+	} catch(e) {
+		alert('error:' + e);
+	}
+	alert('konec');
 }
 
 $('document').ready(function() {
