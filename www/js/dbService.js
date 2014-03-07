@@ -13,7 +13,7 @@ readerApp.factory('dbService', ['$http', '$route', '$q', '$timeout', function($h
 	};
     
 //	setTimeout(function() { 
-        navigator.splashscreen.hide();
+//        navigator.splashscreen.hide();
 //    }, 1000);
 
     

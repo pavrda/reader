@@ -24,6 +24,10 @@
 
 <script type="text/javascript">
 
+function onDeviceReady() {
+    navigator.splashscreen.hide();
+}
+
 $('document').ready(function() {
 	$('#divActualCategory').on('click', function(e) {
 		$('#navRubriky').toggle('fast');
@@ -33,6 +37,9 @@ $('document').ready(function() {
 	$(document).on('click', function(e) {
 		$('#navRubriky:visible').toggle('fast');
 	});
+	
+	document.addEventListener("deviceready", onDeviceReady, false);
+	
 /*	
 	$('.rubriky a').click(function () {
 		$('#navRubriky').toggle('slow');
@@ -45,7 +52,7 @@ $('document').ready(function() {
 
 });
 
-navigator.splashscreen.hide();
+
 
 </script>
         <div class="main">
