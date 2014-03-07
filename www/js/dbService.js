@@ -91,10 +91,8 @@ readerApp.factory('dbService', ['$http', '$route', '$q', '$timeout', function($h
 	}
 
 	function stazeno() {
-//		document.getElementById("
 		$('#preLoaderDiv').hide();
-		$route.reload();
-//		window.location.hash="";
+//		$route.reload();
 	}
 	
 	
