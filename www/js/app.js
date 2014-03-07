@@ -18,3 +18,11 @@ readerApp.config(['$routeProvider',
       });
   }]);
 
+angular.module('myapp').run(['$rootScope', function($rootScope) {
+    document.addEventListener('deviceready', function() {
+        $rootScope.$apply(function() {
+        	alert('angular onready');
+            $rootScope.myVariable = "variable value";
+        });
+    });
+}]);

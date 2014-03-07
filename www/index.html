@@ -36,8 +36,6 @@ function onDeviceReady() {
 
 $('document').ready(function() {
 	
-	alert('jquery');
-	
 	$('#divActualCategory').on('click', function(e) {
 		$('#navRubriky').toggle('fast');
 		e.stopPropagation(); 
@@ -48,6 +46,14 @@ $('document').ready(function() {
 	});
 	
 	document.addEventListener("deviceready", onDeviceReady, false);
+	alert('jquery12');
+	try {
+    	navigator.splashscreen.hide();
+	} catch(e) {
+		alert('error:' + e);
+	}
+	alert('konec');
+
 	
 /*	
 	$('.rubriky a').click(function () {
