@@ -12,6 +12,10 @@ readerApp.factory('dbService', ['$http', '$route', '$q', '$timeout', function($h
 		}
 	};
     
+	setTimeout(function() { 
+        navigator.splashscreen.hide();
+    }, 1000);
+
     
 //    db.transaction(populateDB, function (err) {}, successDB);
     db.transaction(populateDB, stazeno, successDB);
