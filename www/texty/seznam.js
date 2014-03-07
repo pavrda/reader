@@ -58,11 +58,11 @@ var loader = [
 "url":"http://www.eyrie.cz/workshopy-a-seminare/co-muzeme-ocekavat-v-ceske-ekonomice-v-roce-2014.html"
 }, {
 "category":"osobnosti",
-"image":"Štepanka-duchkova-icon.jpg",
+"image":"Stepanka-duchkova-icon.jpg",
 "url":"http://www.eyrie.cz/workshopy-a-seminare/pozvali-vas-aneb-zasady-vystoupeni-pred-kamerou.html"
 }, {
 "category":"osobnosti",
-"image":"Křivánek-icon.png",
+"image":"Krivanek-icon.png",
 "url":"http://www.eyrie.cz/workshopy-a-seminare/stihle-mysleni-ve-vyrobe-i-administrative.html"
 }
 ];
