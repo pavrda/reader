@@ -46,28 +46,10 @@ $('document').ready(function() {
 		$('#navRubriky:visible').toggle('fast');
 	});
 	
-	document.addEventListener("deviceready", onDeviceReady, false);
-	alert('1-jquery12');
-	try {
-    	navigator.splashscreen.hide();
-	} catch(e) {
-		alert('1-error:' + e);
-	}
-	alert('1-konec');
-
-	
-/*	
-	$('.rubriky a').click(function () {
-		$('#navRubriky').toggle('slow');
-	});
-
-	$('.contentContainer').click(function () {
-		$('#navRubriky').hide();
-	});
-*/
 
 });
 
+document.addEventListener("deviceready", onDeviceReady, false);
 
 
 </script>
