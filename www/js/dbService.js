@@ -12,12 +12,7 @@ readerApp.factory('dbService', ['$http', '$route', '$q', '$timeout', function($h
 		}
 	};
     
-//	setTimeout(function() { 
-//        navigator.splashscreen.hide();
-//    }, 1000);
 
-    
-//    db.transaction(populateDB, function (err) {}, successDB);
     db.transaction(populateDB, stazeno, successDB);
 	
 	function populateDB(tx) {
@@ -65,11 +60,6 @@ readerApp.factory('dbService', ['$http', '$route', '$q', '$timeout', function($h
 	    	var title = data.substring(i + 7,j);
 	    	j = title.indexOf(' |');
 	    	if (j) title = title.substring(0,j);
-//	    	title = title.replace(' | Eyrie - centrum moderního podnikání','');
-//	    	title = title.replace(' | Workshopy a semináře','');
-
-	    	
-//		    alert('good:' + title);
 
 		    db.transaction(function (tx) {
 		    	tx.executeSql('INSERT INTO article (poradi, category_id, id, title, txt, image) VALUES (?,?,?,?,?,?)', [loaderCounter, category, sid, title, txt, image]);
@@ -78,7 +68,7 @@ readerApp.factory('dbService', ['$http', '$route', '$q', '$timeout', function($h
 		    });
 	    }).
 	    error(function(data, status, headers, config) {
-		    alert('bad');
+		    alert('Problem');
 	      // called asynchronously if an error occurs
 	      // or server returns response with an error status.
 	    });
@@ -92,7 +82,7 @@ readerApp.factory('dbService', ['$http', '$route', '$q', '$timeout', function($h
 
 	function stazeno() {
 		$('#preLoaderDiv').hide();
-//		$route.reload();
+		$route.reload();
 	}
 	
 	

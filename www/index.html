@@ -24,20 +24,11 @@
 
 <script type="text/javascript">
 
+// on iPhone delay splash screen
 function onDeviceReady() {
 	setTimeout(function() {
         navigator.splashscreen.hide();
-    }, 10000);
-	
-/*	
-//	alert('hide');
-	try {
-//    	navigator.splashscreen.hide();
-	} catch(e) {
-		alert('error:' + e);
-	}
-//	alert('konec');
-*/
+    }, 2000);
 }
 
 $('document').ready(function() {

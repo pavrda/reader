@@ -21,7 +21,7 @@ readerApp.config(['$routeProvider',
 angular.module('readerApp').run(['$rootScope', function($rootScope) {
     document.addEventListener('deviceready', function() {
         $rootScope.$apply(function() {
-        	alert('angular onready');
+//        	alert('angular onready');
             $rootScope.myVariable = "variable value";
         });
     });
