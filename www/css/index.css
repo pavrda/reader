@@ -43,6 +43,7 @@ body {
     padding:0px;
 /*    text-transform:uppercase; */
     width:100%;
+    padding-top: 3em;
 }
 
 /* Portrait layout (default) */
@@ -143,6 +144,8 @@ img#preloaderAnimation
 	position: relative;
 	top: 50%;
 	left: 50%;
+	margin-left: -32px;
+	margin-top: -32px;
 }
 
 div#preLoaderDiv
@@ -165,6 +168,12 @@ div#preLoaderDiv
 	display: none;
 }
 
+#vrsek {
+	position: fixed;
+	width: 100%;
+	top: 0px;
+	z-index: 100;
+}
 
 #divActualCategory:after {
 	content: "";

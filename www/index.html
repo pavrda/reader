@@ -53,6 +53,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 			<div id="preLoaderDiv">
 				<img id="preloaderAnimation" src="img/loader.gif" />
 			</div>
+			<div id="vrsek">
         	<div class="header">
         		<div class="nav headerBlock" id="divActualCategory">{{actualCategoryTitle}}</div>
         		<div class="logo headerBlock">
@@ -62,6 +63,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
         	<div class="rubriky" id="navRubriky" ng-controller="CategoryListCtrl" >
        			<a ng-repeat="category in categories" href="#{{category.id}}" ><span>{{category.title}}</span></a>
         	</div>
+			</div>        	
         	<div class="contentContainer" id="divContent"></div>
         	<div ng-view></div>
         </div>
