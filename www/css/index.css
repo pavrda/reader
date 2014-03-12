@@ -24,7 +24,7 @@ body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#FFFFFF;
+    background-color:#E0E0E0;
     xbackground-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
     xbackground-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
     xbackground-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
@@ -127,7 +127,7 @@ h1 {
 	float: right;
 	color: #ffffff;
 	font-weight: bold;
-	font-size: 150%;	
+	font-size: 130%;	
 }
 
 .header {
@@ -184,7 +184,7 @@ div.rubriky {
 	width: 8em;
 	right: 0px;
 	display: none;
-	font-size: 150%;
+	font-size: 130%;
 	font-weight: bold;
 	z-index: 100;
 }
@@ -242,14 +242,15 @@ div.category img {
 div.articleItem a {
 	text-decoration: none;
 	font-weight: bold;
+	font-size: 11pt;
 }
 
 div.articleItem a:link {
 	color:#004167;
 	}
 	
-xdiv.articleItem a:visited {
-	color:#00FF00;
+div.articleItem a:visited {
+	color:#808080;
 	}
 
 
@@ -257,16 +258,21 @@ xdiv.articleItem a:visited {
 div.articleItem hr {
 	border: 0;
     height: 1px;
+    background: #a0a0a0;
+/*    
     background: #333;
-    background-image:  -webkit-linear-gradient(left, #ddddff, #0000C0, #ddddff);
-    background-image:    -moz-linear-gradient(left, #ccc, #333, #ccc); 
-    background-image:     -ms-linear-gradient(left, #ccc, #333, #ccc); 
-    background-image:      -o-linear-gradient(left, #ccc, #333, #ccc); 
+    background-image: -webkit-linear-gradient(left, #ddddff, #0000C0, #ddddff);
+    background-image:    -moz-linear-gradient(left, #ddddff, #0000C0, #ddddff);
+    background-image:     -ms-linear-gradient(left, #ddddff, #0000C0, #ddddff);
+    background-image:      -o-linear-gradient(left, #ddddff, #0000C0, #ddddff);
+*/
 }
 
 div.artDate {
 	margin-top: 2ex;
 	font-style: italic;
+	color: #808080;
+	font-size: 80%;
 }
 
 div.copyright {
@@ -351,3 +357,6 @@ div.divArticle blockquote {
 .text .indent       { text-indent: 20px; }
 
 
+.text h1	{
+	font-size: 14pt;
+}
