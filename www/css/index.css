@@ -127,7 +127,7 @@ h1 {
 	float: right;
 	color: #ffffff;
 	font-weight: bold;
-	font-size: 130%;	
+	xfont-size: 130%;	
 }
 
 .header {
@@ -184,7 +184,7 @@ div.rubriky {
 	width: 8em;
 	right: 0px;
 	display: none;
-	font-size: 130%;
+	xfont-size: 130%;
 	font-weight: bold;
 	z-index: 100;
 }
@@ -201,6 +201,9 @@ div.rubriky {
 	width: 100%;
 	background-color: #004167;
 	background-image: -webkit-linear-gradient(#004167, #001d3b);	
+	
+	padding-top:1ex;
+	padding-bottom:0.5ex;
 }
 
 
