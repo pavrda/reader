@@ -25,6 +25,11 @@
 <script type="text/javascript">
 
 function onDeviceReady() {
+	setTimeout(function() {
+        navigator.splashscreen.hide();
+    }, 10000);
+	
+/*	
 //	alert('hide');
 	try {
 //    	navigator.splashscreen.hide();
@@ -32,6 +37,7 @@ function onDeviceReady() {
 		alert('error:' + e);
 	}
 //	alert('konec');
+*/
 }
 
 $('document').ready(function() {
@@ -68,9 +74,5 @@ document.addEventListener("deviceready", onDeviceReady, false);
         	<div class="contentContainer" id="divContent"></div>
         	<div ng-view></div>
         </div>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
     </body>
 </html>
