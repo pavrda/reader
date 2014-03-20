@@ -242,19 +242,26 @@ p.pDatum {
 
 div.category {
 	margin-top: 0.5em;
-	margin-left: 0.5em;
-	margin-right: 1em;
+	margin-left: 0px;
+	margin-right: 0px;
 	xfont-size: 150%;
 }
 
 div.category img {
-	margin-right: 0.5em;
+	margin-right: 10px;
+	margin-left: 10px;
+	margin-bottom: 10px;
 }
 
+div.articleItemContainer {
+	margin-left: 120px;
+	margin-right: 1ex;
+}
 div.articleItem a {
 	text-decoration: none;
-	font-weight: bold;
+	xfont-weight: bold;
 	font-size: 11pt;
+	font-family: "Georgia";
 }
 
 div.articleItem a:link {
@@ -267,17 +274,27 @@ div.articleItem a:visited {
 
 
 
-div.articleItem hr {
-	border: 0;
-    height: 1px;
-    background: #a0a0a0;
-/*    
+xxxdiv.articleItem xxxhr {
+    xheight: 0.5px;
+    background: #c0c0c0;
+    xmargin-top: 10px;
+	xmargin-bottom: 2ex;
     background: #333;
     background-image: -webkit-linear-gradient(left, #ddddff, #0000C0, #ddddff);
     background-image:    -moz-linear-gradient(left, #ddddff, #0000C0, #ddddff);
     background-image:     -ms-linear-gradient(left, #ddddff, #0000C0, #ddddff);
     background-image:      -o-linear-gradient(left, #ddddff, #0000C0, #ddddff);
 */
+*/
+}
+
+
+div.articleItem hr {
+	color: #c0c0c0;
+	background-color: #c0c0c0;
+	height: 1px;
+	border: 0;
+	width: 100%;
 }
 
 div.artDate {
@@ -371,4 +388,5 @@ div.divArticle blockquote {
 
 .text h1	{
 	font-size: 14pt;
+	text-align: left;
 }
