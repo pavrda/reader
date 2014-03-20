@@ -16,7 +16,7 @@ readerApp.factory('dbService', ['$http', '$route', '$q', '$timeout', function($h
     db.transaction(populateDB, stazeno, successDB);
 	
 	function populateDB(tx) {
-	    tx.executeSql('DROP TABLE IF EXISTS category');
+//	    tx.executeSql('DROP TABLE IF EXISTS category');
 	    tx.executeSql('CREATE TABLE category (poradi unique, id unique, title)');
 		$('#preLoaderDiv').show();
 
@@ -63,6 +63,7 @@ readerApp.factory('dbService', ['$http', '$route', '$q', '$timeout', function($h
 
 		    db.transaction(function (tx) {
 		    	tx.executeSql('INSERT INTO article (poradi, category_id, id, title, txt, image) VALUES (?,?,?,?,?,?)', [loaderCounter, category, sid, title, txt, image]);
+		    	console.log('123');
 		    	loaderCounter ++;
 		    	stahni();
 		    });

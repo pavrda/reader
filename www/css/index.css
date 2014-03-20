@@ -43,7 +43,7 @@ body {
     padding:0px;
 /*    text-transform:uppercase; */
     width:100%;
-    padding-top: 3em;
+    padding-top: 42px;
 }
 
 /* Portrait layout (default) */
@@ -120,7 +120,8 @@ h1 {
 .headerBlock {
 	display: inline-block;
 	padding: 7px 2em 0px 0.5em;
-	min-height: 3ex;
+	xmin-height: 3ex;
+	min-height: 36px;
 	min-width: 3ex;
 }
 
@@ -223,13 +224,13 @@ div.rubriky {
 
 div.clanek {
 	clear: both;
-	margin-top: 0.5ex;
-	margin-left: 0.5ex;
+	xmargin-top: 0.5ex;
+	xmargin-left: 0.5ex;
 	border-bottom: solid 1px #c0c0c0;
 	min-height: 40px;
 }
 
-.clanek img {
+.xclanek img {
 	width: 32px;
 	float: left;
 	vertical-align: top;

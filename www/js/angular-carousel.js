@@ -295,6 +295,9 @@ angular.module('angular-carousel')
                     }
 
                     function goToSlide(i, animate) {
+                    	console.log('goToSlide(' + i + ',' + offset + ')');
+                    	if (offset>0) animate=false;
+                    	
                         if (isNaN(i)) {
                             i = scope.carouselIndex;
                         }

@@ -2,6 +2,7 @@ var readerApp = angular.module('readerApp', [
   'ngRoute', 'ngSanitize', 'angular-carousel'
 ]);
 
+/*
 readerApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
@@ -17,6 +18,25 @@ readerApp.config(['$routeProvider',
         redirectTo: '/pro-inspiraci'
       });
   }]);
+*/
+
+readerApp.config(['$routeProvider',
+                  function($routeProvider) {
+                    $routeProvider.
+                      when('/:catId', {
+                        templateUrl: 'tplNovinky.html',
+                        controller: 'novinkyController'
+                      }).
+                      when('/:catId/:artId', {
+                        templateUrl: 'tplNovinky.html',
+                        controller: 'novinkyController'
+                      }).
+                      otherwise({
+                        redirectTo: '/pro-inspiraci'
+                      });
+                  }]);
+
+
 
 angular.module('readerApp').run(['$rootScope', function($rootScope) {
     document.addEventListener('deviceready', function() {
