@@ -30,7 +30,7 @@ readerApp.factory('imgService', ['$http', '$route', '$q', '$timeout', function($
 
 		if (is_cordova()) {
 			// PHONEGAP
-			window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, gotFileSystem, onError);
+			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFileSystem, onError);
 			return;
 		}		
 		
