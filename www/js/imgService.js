@@ -96,7 +96,7 @@ readerApp.factory('imgService', ['$http', '$route', '$q', '$timeout', function($
 			    fname,
 			    dir.fullPath + "/" + hash + ext,
 			    function(entry) {
-//			    	alert('stazeno:' + fname);
+			    	alert('stazeno:' + fname);
 			        console.log("download complete: " + entry.fullPath);
 			    },
 			    function(error) {
