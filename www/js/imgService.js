@@ -85,7 +85,7 @@ readerApp.factory('imgService', ['$http', '$route', '$q', '$timeout', function($
 		if (is_cordova()) {
 			var fileTransfer = new FileTransfer();
 
-			alert('jdu stahovat');
+			alert('jdu stahovat:' + fname);
 //			if (device.platform == "Android") {
 //				fname= "file:///android_asset/www/" + fname;				
 //			} else {
