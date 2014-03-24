@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "cz.inited.eyrie"
-        version   = "1.0.23">
+        version   = "1.0.24">
 
     <name>Eyrie</name>
 
@@ -41,6 +41,9 @@
     <!-- Plugins -->
 
     <gap:plugin name="org.apache.cordova.splashscreen" />
+    <gap:plugin name="org.apache.cordova.file" />
+    <gap:plugin name="org.apache.cordova.file-transfer" />
+     <gap:plugin name="org.apache.cordova.console" />
  
 
     <!-- Core plugins 	
