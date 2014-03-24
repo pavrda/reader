@@ -142,6 +142,7 @@ function $SanitizeProvider() {
     return function(html) {
       var buf = [];
       htmlParser(html, htmlSanitizeWriter(buf, function(uri, isImage) {
+    	  return true; //jpv - aby to bralo URL z local storage
         return !/^unsafe/.test($$sanitizeUri(uri, isImage));
       }));
       return buf.join('');
