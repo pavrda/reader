@@ -10,7 +10,7 @@ readerApp.factory('imgService', ['$http', '$route', '$q', '$timeout', function($
 		fs = lfs;
 		dir = fs.root;
 		
-//		alert("Mam fs!:" + fs.root.toURL());
+		alert("Mam fs!:" + fs.root.toURL());
 	}
 
 	function onError(e) {
@@ -27,6 +27,12 @@ readerApp.factory('imgService', ['$http', '$route', '$q', '$timeout', function($
 	};
 
 	is.init = function() {
+
+		if (is_cordova()) {
+			// PHONEGAP
+			window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, gotFileSystem, onError);
+			return;
+		}		
 		
 		window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
 		window.requestFileSystem(window.webkitStorageInfo.TEMPORARY, 5*1024*1024, gotFileSystem, function(e){alert(2);});
