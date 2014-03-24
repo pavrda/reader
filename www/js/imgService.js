@@ -85,7 +85,11 @@ readerApp.factory('imgService', ['$http', '$route', '$q', '$timeout', function($
 		if (is_cordova()) {
 			var fileTransfer = new FileTransfer();
 			
-			fname= "file:///android_asset/www/" + fname;
+			if (device.platform == "Android") {
+				fname= "file:///android_asset/www/" + fname;				
+			} else {
+			}
+			
 			console.log("location:" + location.href);
 
 			fileTransfer.download(
