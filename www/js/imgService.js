@@ -84,16 +84,17 @@ readerApp.factory('imgService', ['$http', '$route', '$q', '$timeout', function($
 		
 		if (is_cordova()) {
 			var fileTransfer = new FileTransfer();
-			
-			if (device.platform == "Android") {
-				fname= "file:///android_asset/www/" + fname;				
-			} else {
+
+			alert('jdu stahovat');
+//			if (device.platform == "Android") {
+//				fname= "file:///android_asset/www/" + fname;				
+//			} else {
 				var p = location.origin + location.pathname;
 				var pi = p.lastIndexOf("/");
 				p = p.substring(0,pi);
 				fname = p + "/" + fname;
 				alert(fname);
-			}
+//			}
 			
 			console.log("location:" + location.href);
 
