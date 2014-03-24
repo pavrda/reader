@@ -85,7 +85,7 @@ readerApp.factory('imgService', ['$http', '$route', '$q', '$timeout', function($
 		if (is_cordova()) {
 			var fileTransfer = new FileTransfer();
 
-			alert('jdu stahovat:' + fname);
+//			alert('jdu stahovat:' + fname);
 //			if (device.platform == "Android") {
 //				fname= "file:///android_asset/www/" + fname;				
 //			} else {
@@ -93,7 +93,7 @@ readerApp.factory('imgService', ['$http', '$route', '$q', '$timeout', function($
 				var pi = p.lastIndexOf("/");
 				p = p.substring(0,pi);
 				fname = p + "/" + fname;
-				alert(fname);
+//				alert(fname);
 //			}
 			
 			console.log("location:" + location.href);
@@ -102,7 +102,7 @@ readerApp.factory('imgService', ['$http', '$route', '$q', '$timeout', function($
 			    fname,
 			    dir.fullPath + "/" + hash + ext,
 			    function(entry) {
-			    	alert('stazeno:' + fname);
+//			    	alert('stazeno:' + fname);
 			        console.log("download complete: " + entry.fullPath);
 			    },
 			    function(error) {
