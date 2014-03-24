@@ -33,7 +33,7 @@ function onDeviceReady() {
 	setTimeout(function() {
         navigator.splashscreen.hide();
     }, 2000);	
-	alert("LocalFileSystem:" + location.href);
+	alert("LocalFileSystem:" + location.origin + location.pathname);
 }
 
 $('document').ready(function() {
