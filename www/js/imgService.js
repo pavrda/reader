@@ -8,9 +8,14 @@ readerApp.factory('imgService', ['$http', '$route', '$q', '$timeout', function($
 	
 	function gotFileSystem(lfs) {
 		fs = lfs;
-		dir = fs.root;
+//		dir = fs.root;
 		
-		alert("Mam fs!:" + fs.root.toURL());
+		fs.root.getDirectory('eyrie', {create: true, exclusive: false}, gotDirectory, onError);
+	}
+	
+	function gotDirectory(ldir) {
+		dir = ldir;
+		alert("Mam dir!:" + dir.toURL());
 	}
 
 	function onError(e) {
@@ -77,7 +82,7 @@ readerApp.factory('imgService', ['$http', '$route', '$q', '$timeout', function($
 	
 	is.save = function(fname, hash, ext) {
 		
-		
+/*		
 		if (is_cordova()) {
 			var fileTransfer = new FileTransfer();
 
@@ -101,6 +106,7 @@ readerApp.factory('imgService', ['$http', '$route', '$q', '$timeout', function($
 			
 			return;
 		}
+*/		
 		
 		var xhr = new XMLHttpRequest();
 //		xhr.open('GET', "http://www.eyrie.cz" + fname, true);
