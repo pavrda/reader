@@ -82,15 +82,17 @@ readerApp.factory('imgService', ['$http', '$route', '$q', '$timeout', function($
 	
 	is.save = function(fname, hash, ext) {
 		
-/*		
 		if (is_cordova()) {
 			var fileTransfer = new FileTransfer();
+			
+			fname= "file:///android_asset/www/" + fname;
+			console.log("location:" + location.href);
 
 			fileTransfer.download(
 			    fname,
 			    hash + ext,
 			    function(entry) {
-			    	alert('stazeno:' + fname);
+//			    	alert('stazeno:' + fname);
 			        console.log("download complete: " + entry.fullPath);
 			    },
 			    function(error) {
@@ -106,7 +108,6 @@ readerApp.factory('imgService', ['$http', '$route', '$q', '$timeout', function($
 			
 			return;
 		}
-*/		
 		
 		var xhr = new XMLHttpRequest();
 //		xhr.open('GET', "http://www.eyrie.cz" + fname, true);
