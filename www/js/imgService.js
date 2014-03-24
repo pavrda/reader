@@ -77,7 +77,7 @@ readerApp.factory('imgService', ['$http', '$route', '$q', '$timeout', function($
 			alert('imgService dir not created');
 			return "";
 		}
-		return dir.toURL();
+		return dir.toURL() + "/";
 	};
 	
 	is.save = function(fname, hash, ext) {
