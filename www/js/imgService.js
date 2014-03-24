@@ -90,7 +90,7 @@ readerApp.factory('imgService', ['$http', '$route', '$q', '$timeout', function($
 
 			fileTransfer.download(
 			    fname,
-			    hash + ext,
+			    dir.fullPath + "/" + hash + ext,
 			    function(entry) {
 //			    	alert('stazeno:' + fname);
 			        console.log("download complete: " + entry.fullPath);
