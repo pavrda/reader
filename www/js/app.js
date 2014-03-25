@@ -36,7 +36,15 @@ readerApp.config(['$routeProvider',
                       });
                   }]);
 
-
+readerApp.config( [
+          '$compileProvider',
+          function( $compileProvider )
+          {   
+//              $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|filesystem:http):/);
+              $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|filesystem:http):/);	//kvuli obrazkum z filesystemu
+              // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
+          }
+      ]);
 
 angular.module('readerApp').run(['$rootScope', function($rootScope) {
     document.addEventListener('deviceready', function() {

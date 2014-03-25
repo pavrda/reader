@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xxxng-app="readerApp">
+<html ng-app="readerApp">
 <head>
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
@@ -32,7 +32,6 @@ window.onerror = function(message, url, lineNumber) {
 
 // on iPhone delay splash screen
 function onDeviceReady() {
-	
 	angular.bootstrap(document, ["readerApp"]);
 	
 	setTimeout(function() {
@@ -54,7 +53,7 @@ $('document').ready(function() {
 
 });
 
-document.addEventListener("deviceready", onDeviceReady, false);
+document.addEventListener("deviceready", onDeviceReady, false);	
 
 
 </script>

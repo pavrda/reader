@@ -218,7 +218,7 @@ var validAttrs = angular.extend({}, uriAttrs, makeMap(
     'color,cols,colspan,compact,coords,dir,face,headers,height,hreflang,hspace,'+
     'ismap,lang,language,nohref,nowrap,rel,rev,rows,rowspan,rules,'+
     'scope,scrolling,shape,size,span,start,style,summary,target,title,type,'+
-    'valign,value,vspace,width,style'));
+    'valign,value,vspace,width,style')); //jpv:pridano style, aby se prenaselo do textu
 
 function makeMap(str) {
   var obj = {}, items = str.split(','), i;

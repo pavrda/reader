@@ -1,17 +1,65 @@
 
-readerApp.factory('dbService', ['$http', '$route', '$q', '$timeout', 'imgService', function($http, $route, $q, $timeout, imgService) {
+readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $route, $timeout) {
 
-	var loaderCounter = 0;
+	var fs = null;		// filesystem
+	var dir = null;		// dir
+	var db = null;		// database
 	
-    var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
-	db.errorDB = function(tx, err) {
-		if (err && err.message) {
-		    alert("Error processing SQL: " + err.message);
+	var loaderCounter = 0;
+	var lastSync = 0;
+	var appBaseURL = "";
+	
+    db = window.openDatabase("Eyrie", "1.0", "Eyrie", 200000);
+	
+	function initFs() {		
+		var s = location.origin + location.pathname;
+		var pi = s.lastIndexOf("/");
+		s = s.substring(0,pi);
+		appBaseURL = s.substring(0, pi + 1);
+		console.log("appBaseURL:" + appBaseURL);
+		
+		if (is_cordova()) {
+			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFileSystem, onError);
 		} else {
-		    alert("Error processing SQL: " + tx);
+			window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
+			window.requestFileSystem(window.webkitStorageInfo.TEMPORARY, 5*1024*1024, gotFileSystem, onError);
 		}
 	};
-    
+
+	function gotFileSystem(lfs) {
+		fs = lfs;
+		fs.root.getDirectory('eyrie', {create: true, exclusive: false}, gotDirectory, onError);
+	}
+	
+	function gotDirectory(ldir) {
+		dir = ldir;
+		initDb();
+	}
+		
+	
+	function initDb(){
+		var tstamp = window.localStorage.getItem('eyrie-timestamp');
+		if (!tstamp) {
+			console.log('first run - create db structure');
+			db.transaction(createDbStructure, db.errorDB, function() {
+				stahni(initialLoaded, initialLoaded);
+			});
+		} else {
+			lastSync = tstamp;
+			console.log('not first run - check for updates');
+			prepareSync();
+		}
+	}
+	
+
+	function initialLoaded() {
+		console.log('initialLoaded()');
+		window.localStorage.setItem('eyrie-timestamp', 1); // aby se npriste nevytvarela databaze, ale aby se provedla synchronizace
+		prepareSync();
+//		runApp();
+	}
+	
+	
 	
 	/***********************************************
 	tiny-sha1 r4
@@ -21,17 +69,11 @@ readerApp.factory('dbService', ['$http', '$route', '$q', '$timeout', 'imgService
 	function SHA1(s){function U(a,b,c){while(0<c--)a.push(b)}function L(a,b){return(a<<b)|(a>>>(32-b))}function P(a,b,c){return a^b^c}function A(a,b){var c=(b&0xFFFF)+(a&0xFFFF),d=(b>>>16)+(a>>>16)+(c>>>16);return((d&0xFFFF)<<16)|(c&0xFFFF)}var B="0123456789abcdef";return(function(a){var c=[],d=a.length*4,e;for(var i=0;i<d;i++){e=a[i>>2]>>((3-(i%4))*8);c.push(B.charAt((e>>4)&0xF)+B.charAt(e&0xF))}return c.join('')}((function(a,b){var c,d,e,f,g,h=a.length,v=0x67452301,w=0xefcdab89,x=0x98badcfe,y=0x10325476,z=0xc3d2e1f0,M=[];U(M,0x5a827999,20);U(M,0x6ed9eba1,20);U(M,0x8f1bbcdc,20);U(M,0xca62c1d6,20);a[b>>5]|=0x80<<(24-(b%32));a[(((b+65)>>9)<<4)+15]=b;for(var i=0;i<h;i+=16){c=v;d=w;e=x;f=y;g=z;for(var j=0,O=[];j<80;j++){O[j]=j<16?a[j+i]:L(O[j-3]^O[j-8]^O[j-14]^O[j-16],1);var k=(function(a,b,c,d,e){var f=(e&0xFFFF)+(a&0xFFFF)+(b&0xFFFF)+(c&0xFFFF)+(d&0xFFFF),g=(e>>>16)+(a>>>16)+(b>>>16)+(c>>>16)+(d>>>16)+(f>>>16);return((g&0xFFFF)<<16)|(f&0xFFFF)})(j<20?(function(t,a,b){return(t&a)^(~t&b)}(d,e,f)):j<40?P(d,e,f):j<60?(function(t,a,b){return(t&a)^(t&b)^(a&b)}(d,e,f)):P(d,e,f),g,M[j],O[j],L(c,5));g=f;f=e;e=L(d,30);d=c;c=k}v=A(v,c);w=A(w,d);x=A(x,e);y=A(y,f);z=A(z,g)}return[v,w,x,y,z]}((function(t){var a=[],b=255,c=t.length*8;for(var i=0;i<c;i+=8){a[i>>5]|=(t.charCodeAt(i/8)&b)<<(24-(i%32))}return a}(s)).slice(),s.length*8))))}
 	/***********************************************/
 	
-	function loadImg(fname, hash, ext) {
-		imgService.save(fname, hash, ext);
-	}
 	
-
-    db.transaction(populateDB, stazeno, successDB);
-	
-	function populateDB(tx) {
+	function createDbStructure(tx) {
 	    tx.executeSql('DROP TABLE IF EXISTS category');
 	    tx.executeSql('CREATE TABLE category (poradi unique, id unique, title)');
-		$('#preLoaderDiv').show();
+//		$('#preLoaderDiv').show();
 
 	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (1, 'o-nas', 'O Eyrie')");
 	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (2, 'poradenstvi-a-sluzby', 'Naše služby')");
@@ -45,28 +87,27 @@ readerApp.factory('dbService', ['$http', '$route', '$q', '$timeout', 'imgService
 	
 	}
 	
-	function stahni() {
-		if (loaderCounter >= loader.length) return stazeno();
-		var s = loader[loaderCounter].url;
-		var category = loader[loaderCounter].category;
-		var sa=s.split('/');
-		s = sa[sa.length-1];
-		var sid = s;
-		s = 'texty/' + s;
+	function stahni(stazenoOk, stazenoErr) {
+		if (loaderCounter >= loader.length) return stazenoOk();
+		var sURL = loader[loaderCounter].url;
+		var category = convertCategory(loader[loaderCounter].category);
+		var sid = loader[loaderCounter].id;
+		if (sURL.substring(0,7) != "http://") {
+			// stahuji neco z aplikace
+			sURL = appBaseURL + "/" + sURL;
+		}
+		baseURL = sURL.substring(0, sURL.lastIndexOf("/") + 1);
+		console.log("sURL:" + sURL);
+		console.log("baseURL:" + baseURL);
 
-		var image = loader[loaderCounter].image;
+		var image = saveImg(loader[loaderCounter].image_url, sURL);
 		
 		
-	    $http({method: 'GET', url: s}).
+	    $http({method: 'GET', url: sURL}).
 	    success(function(data, status, headers, config) {
 	    	var i = data.indexOf('<article class="text">');
 	    	var j = data.indexOf('   <span class="clear-box"></span>');
 	    	var txt = data.substring(i + 24,j);
-	    	
-	    	txt = txt.replace("/files/uploads/workshopy/", "texty/");
-	    	txt = txt.replace("/files/uploads/pro%20inspiraci/", "texty/");
-	    	txt = txt.replace("/files/uploads/", "texty/");
-	    	
 	    	
 	    	i = data.indexOf('<title>');
 	    	j = data.indexOf('</title>');
@@ -85,46 +126,177 @@ readerApp.factory('dbService', ['$http', '$route', '$q', '$timeout', 'imgService
 	    		var src=txt.substring(i,j);
 	    		console.log("src:" + src);
 	    		
-	    		var k = src.lastIndexOf(".");
-	    		var ext = src.substring(k);
-	    		var hash = SHA1(src);
-	    		loadImg(src, hash, ext);
-	    		
-	    		var prefix = imgService.getURL();
-	    		
-	    		console.log("new:" + prefix + hash + ext);
-	    		
-	    		txt = txt.substring(0,i) + prefix + hash + ext + txt.substring(j);
+	    		src = saveImg(src, sURL);
+	    		txt = txt.substring(0,i) + src + txt.substring(j);
 	    		i++;
 	    	}
-	    	
-	    	
 
 		    db.transaction(function (tx) {
-		    	tx.executeSql('INSERT INTO article (poradi, category_id, id, title, txt, image) VALUES (?,?,?,?,?,?)', [loaderCounter, category, sid, title, txt, image]);
-		    	console.log('123');
+		    	tx.executeSql('INSERT OR REPLACE INTO article (poradi, category_id, id, title, txt, image) VALUES (?,?,?,?,?,?)', [sid, category, sid, title, txt, image]);
+		    	console.log("Stazeno ok:" + sURL);
 		    	loaderCounter ++;
-		    	stahni();
-		    });
+		    	stahni(stazenoOk, stazenoErr);
+		    }, function(e) {
+		    	console.log("Chyba pri vkladani do db:" + e.message);
+		    	stazenoErr();
+		    	});
 	    }).
 	    error(function(data, status, headers, config) {
-		    alert('Problem');
-	      // called asynchronously if an error occurs
-	      // or server returns response with an error status.
+	    	// neco nejde stahnout
+	    	// priste to zkusim znovu, pro ted stahovani koncim
+	    	console.log("Nelze stahnout:" + sURL);
+	    	stazenoErr();
 	    });
 	    
 	}
 	
 	
-	function successDB(){
-		stahni();
+	
+	// chyba pri tvorbe struktury databaze
+	function errorDB(tx, err) {
+		if (err && err.message) {
+		    alert("Error processing SQL: " + err.message);
+		} else {
+		    alert("Error processing SQL: " + tx);
+		}
+	};
+
+
+	// chyba pri inicializaci filesystemu
+	function onError(e) {
+		alert("chyba:" + e);
 	}
 
-	function stazeno() {
-		$('#preLoaderDiv').hide();
-		$route.reload();
+	// chyba pri nacitani obrazku
+	function error_callback(e) {
+		alert("chyba:" + e);
 	}
 	
+	
+	var is_cordova = function() {
+		return (typeof(cordova) !== 'undefined' || typeof(phonegap) !== 'undefined');
+	};
+
+	function convertCategory(s) {
+		if (s == "Pro inspiraci") return "pro-inspiraci";
+		return s;
+	}
+
+	
+
+	
+	function saveImg(imgSrc, pageUrl) {
+		var fname;
+		if (!imgSrc) return "";
+		
+		var k = imgSrc.lastIndexOf(".");
+		var ext = imgSrc.substring(k);
+		var hash = SHA1(imgSrc);		
+		var prefix = dir.toURL() + "/";
+		var resUrl = prefix + hash + ext;
+
+		if (imgSrc.substring(0,7) == "http://") {
+			fname = imgSrc;
+		} else if (imgSrc.charAt(0) == "/"){
+			var pi = pageUrl.indexOf("/");
+			pi = pageUrl.indexOf("/", pi + 1);
+			pi = pageUrl.indexOf("/", pi + 1);
+			fname = pageUrl.substring(0, pi) + imgSrc;
+		} else {
+			var pi = pageUrl.lastIndexOf("/");
+			fname = pageUrl.substring(0, pi+1) + imgSrc;			
+		}
+
+		console.log("saveImg: " + imgSrc + " -> " + fname + " -> " + prefix + hash + ext);
+
+		
+		if (is_cordova()) {
+			var fileTransfer = new FileTransfer();
+
+			fileTransfer.download(
+			    fname,
+			    dir.fullPath + "/" + hash + ext,
+			    function(entry) {
+//			    	alert('stazeno:' + fname);
+			        console.log("download complete: " + entry.fullPath);
+			    },
+			    function(error) {
+			    	alert('error:' + error.code);
+			        console.log("download error source " + error.source);
+			        console.log("download error target " + error.target);
+			        console.log("upload error code" + error.code);
+			    },
+			    false,
+			    {
+			    }
+			);
+			return resUrl;
+		}
+		
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', fname, true);
+		xhr.responseType = 'blob';
+		xhr.onload = function(event){
+			if (xhr.response && (xhr.status == 200 || xhr.status == 0)) {
+				dir.getFile(hash + ext, { create:true }, function(fileEntry) {
+					fileEntry.createWriter(function(writer){
+
+						writer.onerror = error_callback;
+						writer.onwriteend = function() {
+							console.log("Ulozeno:" + fname);
+							};
+						writer.write(xhr.response, error_callback);
+
+					}, error_callback);
+				}, error_callback);
+			} else {
+				console.log("nelze nacist obrazek 1:" + fname);
+			}
+		};
+		xhr.onerror = function() {
+			console.log("nelze nacist obrazek 2:" + fname);
+		};
+		xhr.send();
+		return resUrl;
+	};
+	
+
+	function prepareSync() {
+		lastSync = new Date().getTime();
+
+		$http({method: 'GET', url: 'feed.js'}).
+	    success(function(data, status, headers, config) {
+	    	loader = data;
+	    	if (loader.length) {
+	    		console.log('Pocet aktualizaci:' + loader.length);	    		
+	    		loaderCounter=0;
+	    		stahni(syncedOK, runApp);
+	    	} else {
+	    		console.log('Nic k aktualizaci');
+	    		syncedOK();
+	    	}
+	    }).
+	    error(function(data, status, headers, config) {
+	    	console.log('Nelze nacist feed');
+	    	// nejde stahnout feed, treba nejsem na netu
+	    	runApp();
+	    });
+
+	}
+	
+	function syncedOK() {
+		window.localStorage.setItem('eyrie-timestamp', lastSync);
+		runApp();
+	}
+	
+	function runApp() {
+		$('#preLoaderDiv').hide();
+		$route.reload();		
+	}
+//	window.localStorage.removeItem('eyrie-timestamp');
+	
+	// spust to - zacni s inicializaci filesystemu
+	initFs();
 	
 	return db;
 }]);

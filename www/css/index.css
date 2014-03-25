@@ -43,7 +43,6 @@ body {
     padding:0px;
 /*    text-transform:uppercase; */
     width:100%;
-    padding-top: 42px;
 }
 
 /* Portrait layout (default) */
@@ -166,7 +165,7 @@ div#preLoaderDiv
 	background-color: black;
 	opacity: 0.7;
 	filter: alpha(opacity=70);
-	display: none;
+	xdisplay: none;
 }
 
 #vrsek {
@@ -228,6 +227,7 @@ div.clanek {
 	xmargin-left: 0.5ex;
 	border-bottom: solid 1px #c0c0c0;
 	min-height: 40px;
+	
 }
 
 .xclanek img {
@@ -390,4 +390,45 @@ div.divArticle blockquote {
 .text h1	{
 	font-size: 14pt;
 	text-align: left;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+}
+
+div.main {
+	height: 100%;
+}
+
+div.main > div.ng-scope {
+	height: 100%;
+}
+	
+div.rn-carousel-container {
+	height: 100%;
+}
+
+div.rn-carousel-container ul {
+	height: 100%;
+}
+
+div.clanek {
+	height: 100%;
+}
+
+div.cl {
+	overflow-y:scroll;
+	height: 100%;
+}
+
+div.category {
+    padding-top: 42px;
+}
+
+div.clanek {
+    padding-top: 42px;	
 }
