@@ -11,20 +11,24 @@
 		</div>
 
 		<div class="category" ng-if="article.isSecond">
-			<div class="articleItem" ng-repeat="category in article.articles">
-				<a href="#/{{catId}}/{{category.id}}" ><img ng-src="{{category.image}}" align="left" width="100" height="70" border="0"></a>
-				<div class="articleItemContainer" >
-					<a href="#/{{catId}}/{{category.id}}" >{{category.title}}</a>
-					<div class="artDate">Publikováno před týdnem</div>
+			<div class="ca">
+				<div class="articleItem" ng-repeat="category in article.articles">
+					<a href="#/{{catId}}/{{category.id}}" ><img ng-src="{{category.image}}" align="left" width="100" height="70" border="0"></a>
+					<div class="articleItemContainer" >
+						<a href="#/{{catId}}/{{category.id}}" >{{category.title}}</a>
+						<div class="artDate">Publikováno před týdnem</div>
+					</div>
+					<hr width="100%" />
 				</div>
-				<hr width="100%" />
+				<div>asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br /></div>
+				<div>asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br /></div>
+				<div class="copyright">© 2014 EYRIE</div>
 			</div>
-			<div class="copyright">© 2014 EYRIE</div>
 		</div>
 
 		<div class="clanek" ng-if="article.isArticle">
 			<div class="cl">
-				<img ng-src="{{article.image}}" width="100%" />
+				<img ng-src="{{article.image}}" width="100%" class="artImg" />
 				<div ng-bind-html="article.txt" class="divArticle text"></div>
 			</div>
 		</div>

@@ -428,8 +428,19 @@ div.cl {
 
 div.category {
     padding-top: 42px;
+	height: 100%;
+}
+
+div.ca {
+	overflow-y:scroll;
+	height: 100%;
+	-webkit-overflow-scrolling: touch;
 }
 
 div.clanek {
     padding-top: 42px;	
+}
+
+img.artImg {
+	display: none;
 }
