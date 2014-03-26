@@ -290,6 +290,9 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 	}
 	
 	function runApp() {
+		setTimeout(function() {
+	        navigator.splashscreen.hide();
+	    }, 1000);
 		$('#preLoaderDiv').hide();
 		$route.reload();		
 	}
