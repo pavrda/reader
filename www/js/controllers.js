@@ -275,3 +275,13 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 
 }]);
 
+
+readerApp.filter('datum', function() {
+  return function(input) {
+    input = input || '';
+    var out = "";
+    out = "před " + input;
+    return out;
+  };
+});
+
