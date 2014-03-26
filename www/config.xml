@@ -39,8 +39,9 @@
     <preference name="android-installLocation"    value="auto" />           <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->
 
     <!-- Plugins -->
-
     <gap:plugin name="org.apache.cordova.splashscreen" />
+    <gap:plugin name="org.apache.cordova.file" />
+    <gap:plugin name="org.apache.cordova.file-transfer" />
  
 
     <!-- Core plugins 	
@@ -110,10 +111,15 @@
     <gap:splash src="splash/splash320x480.png"  gap:platform="android" gap:density="mdpi" />
     <gap:splash src="splash/splash480x800.png"  gap:platform="android" gap:density="hdpi" />
     <gap:splash src="splash/splash720x1280.png" gap:platform="android" gap:density="xhdpi" />
-    <gap:splash src="splash/splash320x480.png"  gap:platform="ios"     width="320" height="480" />
-    <gap:splash src="splash/splash640x960.png"  gap:platform="ios"     width="640" height="960" />
-    <gap:splash src="splash/splash768x1004.png" gap:platform="ios"     width="768" height="1024" />
-    <gap:splash src="splash/splash1024x783.png" gap:platform="ios"     width="1024" height="768" />
+    
+    <gap:splash src="splash/splash640x1136.png"  gap:platform="ios"    width="640" height="1136" />
+    <gap:splash src="splash/splash1536x2008.png" gap:platform="ios"    width="1536" height="2008" />
+    <gap:splash src="splash/splash768x1004.png"  gap:platform="ios"    width="768" height="1004" />
+    <gap:splash src="splash/splash640x960.png"   gap:platform="ios"    width="640" height="960" />
+    <gap:splash src="splash/splash320x480.png"   gap:platform="ios"    width="320" height="480" />
+
+
+
 
     <!--
     <gap:splash src="res/screen/android/screen-ldpi-portrait.png"  gap:platform="android" gap:density="ldpi" />
