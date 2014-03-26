@@ -296,7 +296,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 		$('#preLoaderDiv').hide();
 		$route.reload();		
 	}
-//	window.localStorage.removeItem('eyrie-timestamp');
+	window.localStorage.removeItem('eyrie-timestamp');
 	
 	// spust to - zacni s inicializaci filesystemu
 	initFs();
