@@ -300,6 +300,6 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 	
 	// spust to - zacni s inicializaci filesystemu
 	initFs();
-	
+
 	return db;
 }]);

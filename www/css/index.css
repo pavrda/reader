@@ -423,6 +423,7 @@ div.clanek {
 div.cl {
 	overflow-y:scroll;
 	height: 100%;
+	-webkit-overflow-scrolling: touch;
 }
 
 div.category {
