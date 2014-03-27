@@ -3,7 +3,7 @@
 		<div class="category" ng-if="article.isFirst">
 			<div class="articleItem" ng-repeat="category in categories">
 				<div class="articleItemContainer" >
-					<a href="#{{category.id}}" >{{category.title}}</a>
+					<a href="#{{category.id}}" class="bigCategory" >{{category.title}}</a>
 				</div>
 				<hr width="100%" />
 			</div>
@@ -23,6 +23,8 @@
 				<div>asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br /></div>
 				<div>asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br /></div>
 				<div class="copyright">© 2014 EYRIE</div>
+				        	<br /><br /><br />&nbsp;
+				
 			</div>
 		</div>
 
@@ -30,6 +32,7 @@
 			<div class="cl">
 				<img ng-src="{{article.image}}" width="100%" class="artImg" />
 				<div ng-bind-html="article.txt" class="divArticle text"></div>
+	        	<br /><br /><br />&nbsp;
 			</div>
 		</div>
 	</li>

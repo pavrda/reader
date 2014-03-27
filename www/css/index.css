@@ -435,6 +435,7 @@ div.ca {
 	overflow-y:scroll;
 	height: 100%;
 	-webkit-overflow-scrolling: touch;
+	margin-bottom: 400px;
 }
 
 div.clanek {
@@ -443,4 +444,9 @@ div.clanek {
 
 img.artImg {
 	display: none;
+}
+
+div.articleItem a.bigCategory {
+	font-size: 200%;
+	margin-left: -2em;
 }

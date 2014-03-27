@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="readerApp">
+<html xxng-app="readerApp">
 <head>
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
@@ -42,7 +42,8 @@ function onDeviceReady() {
 
 $('document').ready(function() {
 	
-	$('#divActualCategory').on('click', function(e) {
+//	$('#divActualCategory').on('click', function(e) {
+	$('#vrsek').on('click', function(e) {
 		$('#navRubriky').toggle('fast');
 		e.stopPropagation(); 
 	});
@@ -63,15 +64,15 @@ document.addEventListener("deviceready", onDeviceReady, false);
 				<img id="preloaderAnimation" src="img/loader.gif" />
 			</div>
 			<div id="vrsek">
-        	<div class="header">
-        		<div class="nav headerBlock" id="divActualCategory">{{actualCategoryTitle}}</div>
-        		<div class="logo headerBlock">
-        			<a href="#"><img src="img/logo64b.png" height="32" /></a>
-        		</div>
-        	</div>
-        	<div class="rubriky" id="navRubriky" ng-controller="CategoryListCtrl" >
-       			<a ng-repeat="category in categories" href="#{{category.id}}" ><span>{{category.title}}</span></a>
-        	</div>
+	        	<div class="header">
+	        		<div class="nav headerBlock" id="divActualCategory">{{actualCategoryTitle}}</div>
+	        		<div class="logo headerBlock">
+	        			<a href="#/pro-inspiraci" onclick="event.stopPropagation()"><img src="img/logo64b.png" height="32" /></a>
+	        		</div>
+	        	</div>
+	        	<div class="rubriky" id="navRubriky" ng-controller="CategoryListCtrl" >
+	       			<a ng-repeat="category in categories" href="#{{category.id}}" ><span>{{category.title}}</span></a>
+	        	</div>
 			</div>        	
         	<div class="contentContainer" id="divContent"></div>
         	<div ng-view></div>
