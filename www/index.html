@@ -9,7 +9,7 @@
     <title>EYRIE reader</title>
     <script type="text/javascript" src="js/requestAnimationFrame.js"></script>
     <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/angular.js"></script>
     <script type="text/javascript" src="js/angular-route.min.js"></script>
     <script type="text/javascript" src="js/angular-sanitize.js"></script>
     <script type="text/javascript" src="js/angular-touch.js"></script>
@@ -25,10 +25,11 @@
 
 <script type="text/javascript">
 
-
+/*
 window.onerror = function(message, url, lineNumber) {
     alert("Error: "+message+" in "+url+" at line "+lineNumber);
 }
+*/
 
 // on iPhone delay splash screen
 function onDeviceReady() {
@@ -52,6 +53,9 @@ $('document').ready(function() {
 		$('#navRubriky:visible').toggle('fast');
 	});
 	
+	if (!window.cordova) {
+		angular.bootstrap(document, ["readerApp"]);
+	}
 
 });
 

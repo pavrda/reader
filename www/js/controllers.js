@@ -256,18 +256,32 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 		}
 		
 		$scope.$watch('slideIndex', function(newValue, oldValue) {
-			console.log('watch:' + newValue + ':' + oldValue);
+			console.log('watchx:' + newValue + ':' + oldValue);
+			
+			if (newValue>1) {
+				if (location.hash != "#/" + $scope.catId + "/" + $scope.items[newValue].id) {
+					console.log('---- go:' + "#/" + $scope.catId + "/" + $scope.items[newValue].id);
+					location.hash = "#/" + $scope.catId + "/" + $scope.items[newValue].id;
+					return;
+				}
+			}
+			
+			if ((newValue==1) && $scope.catId) {
+				if (location.hash != "#/" + $scope.catId) {
+					console.log('---- go:' + "#/" + $scope.catId);
+					location.hash = "#/" + $scope.catId;
+					return;
+				}
+			}
+			
+			
 			if (newValue>2) {
 				$scope.items.splice(2,1);
 				$scope.$apply();
 				$scope.slideIndex=2;
 				
 			}
-			if ((newValue==9) && (oldValue==0)) {
-				$scope.slideIndex=1;
-				$scope.$apply();
-			}
-//	        alert('zmena:' + newValue + ':' + oldValue);
+			
 	      });
 		
 
