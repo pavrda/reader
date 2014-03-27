@@ -30,10 +30,10 @@ readerApp.config(['$routeProvider',
                       when('/:catId/:artId', {
                         templateUrl: 'tplNovinky.html',
                         controller: 'novinkyController'
-                      }).
-                      otherwise({
-                        redirectTo: '/pro-inspiraci'
                       });
+//                      otherwise({
+//                        redirectTo: '/pro-inspiraci'
+//                      });
                   }]);
 
 readerApp.config( [
