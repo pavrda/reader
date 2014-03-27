@@ -279,7 +279,7 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 					notChangeUrl=true;
 					$location.path("/" + $scope.catId + "/" + $scope.items[newValue].id).replace();
 				}
-				$("div.articleItem").removeClass('selArticle');
+				$("div.articleItem2").removeClass('selArticle');
 				var ai = $("div.articleItem[data-id='" + $scope.items[newValue].id + "']");
 				var pi = ai.parent();
 				ai.addClass('selArticle');
@@ -297,6 +297,7 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 				}
 			}
 
+			
 			if ((newValue==0) && $scope.catId) {
 				if (location.hash != "#/") {
 					notChangeUrl=true;

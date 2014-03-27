@@ -1,7 +1,7 @@
 <ul rn-carousel xrn-carousel-indicator rn-carousel-index="slideIndex" >
 	<li ng-repeat="article in items">
 		<div class="category" ng-if="article.isFirst">
-			<div class="articleItem" ng-repeat="category in categories">
+			<div class="articleItem" ng-repeat="category in categories" ng-class="{selArticle: category.id==catId}">
 				<div class="articleItemContainer" >
 					<a href="#{{category.id}}" class="bigCategory" >{{category.title}}</a>
 				</div>
@@ -12,7 +12,7 @@
 
 		<div class="category" ng-if="article.isSecond">
 			<div class="ca">
-				<div class="articleItem" ng-repeat="category in article.articles" data-id="{{category.id}}">
+				<div class="articleItem articleItem2" ng-repeat="category in article.articles" data-id="{{category.id}}">
 					<a href="#/{{catId}}/{{category.id}}" ><img ng-src="{{category.icon}}" align="left" width="100" height="70" border="0"></a>
 					<div class="articleItemContainer" >
 						<a href="#/{{catId}}/{{category.id}}" >{{category.title}}</a>
