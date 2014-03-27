@@ -55,6 +55,7 @@ $('document').ready(function() {
 
 
 	$(document).on('click', function(e) {
+		alert('999');
 		$('#navRubriky:visible').toggle('fast');
 	});
 	
@@ -66,16 +67,6 @@ $('document').ready(function() {
 
 document.addEventListener("deviceready", onDeviceReady, false);	
 
-function rozbal(e) {
-	$('#navRubriky').toggle('fast');
-	e.stopPropagation();
-	alert(1);
-}
-
-function nic() {
-	alert('2');
-}
-
 
 </script>
         <div class="main">
@@ -84,9 +75,6 @@ function nic() {
 			</div>
 			<div id="vrsek">
 	        	<div class="header">
-<!-- 	        	
-	        		<a href="javascript:nic()" onclick="rozbal(event)" class="nav headerBlock" id="divActualCategory">{{actualCategoryTitle}}</a>
- -->	        		
 	        		<div class="nav headerBlock" id="divActualCategory">{{actualCategoryTitle}}</div>
 	        		<div class="logo headerBlock">
 	        			<a href="#/pro-inspiraci" onclick="event.stopPropagation()"><img src="img/logo64b.png" height="32" /></a>
