@@ -46,17 +46,15 @@ $('document').ready(function() {
 //	$('#divActualCategory').on('click', function(e) {
 
 	$('#vrsek').on('click', function(e) {
-		alert('123');
-
-		$('#navRubriky').toggle('fast');
+//		$('#navRubriky').toggle('fast');
+		$('#navRubriky').show();
 		e.stopPropagation(); 
-		alert('456');
 	});
 
 
 	$(document).on('click', function(e) {
-		alert('999');
-		$('#navRubriky:visible').toggle('fast');
+//		$('#navRubriky:visible').toggle('fast');
+		$('#navRubriky:visible').hide();
 	});
 	
 	if (!window.cordova) {
@@ -82,6 +80,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 	        	</div>
 	        	<div class="rubriky" id="navRubriky" ng-controller="CategoryListCtrl" >
 	       			<a ng-repeat="category in categories" href="#{{category.id}}" ><span>{{category.title}}</span></a>
+	       			blablabla<br />blablabla<br />blablabla<br />blablabla<br />
 	        	</div>
 			</div>        	
         	<div class="contentContainer" id="divContent"></div>
