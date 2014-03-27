@@ -52,6 +52,11 @@ readerApp.config( [
 
 readerApp.run(['$rootScope', 'dbService', 
     function($rootScope, dbService) {
+	
+	$rootScope.ahoj = function() {
+		alert('ahoj');
+	};
+	
     document.addEventListener('deviceready', function() {
         $rootScope.$apply(function() {
         	dbService.init();
@@ -81,4 +86,18 @@ readerApp.filter('datumPred', function() {
 		return "před " + dif + " lety";
 	};
 });
+
+
+readerApp.directive('showMenu', function() {
+    return function(scope, element, attrs) {
+        $(element).click(function(event) {
+        	alert('ahoj');
+
+        	$('#navRubriky').show();
+//        	$('#navRubriky').toggle('fast');
+        	event.stopPropagation();         	
+            event.preventDefault();
+        });
+    }
+})
 

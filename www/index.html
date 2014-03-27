@@ -58,6 +58,13 @@ $('document').ready(function() {
 
 //document.addEventListener("deviceready", onDeviceReady, false);	
 
+function showMenu(e) {
+	alert('ahoj');
+
+	$('#navRubriky').show();
+//	$('#navRubriky').toggle('fast');
+	e.stopPropagation(); 
+}
 
 </script>
         <div class="main">
