@@ -46,15 +46,13 @@ $('document').ready(function() {
 //	$('#divActualCategory').on('click', function(e) {
 
 	$('#vrsek').on('click', function(e) {
-//		$('#navRubriky').toggle('fast');
-		$('#navRubriky').show();
+		$('#navRubriky').toggle('fast');
 		e.stopPropagation(); 
 	});
 
 
 	$(document).on('click', function(e) {
-//		$('#navRubriky:visible').toggle('fast');
-		$('#navRubriky:visible').hide();
+		$('#navRubriky:visible').toggle('fast');
 	});
 	
 	if (!window.cordova) {
@@ -78,9 +76,17 @@ document.addEventListener("deviceready", onDeviceReady, false);
 	        			<a href="#/pro-inspiraci" onclick="event.stopPropagation()"><img src="img/logo64b.png" height="32" /></a>
 	        		</div>
 	        	</div>
-	        	<div class="rubriky" id="navRubriky" ng-controller="CategoryListCtrl" >
+	        	<div class="rubriky" id="navRubriky" >
+<!-- 	    ng-controller="CategoryListCtrl"     	
 	       			<a ng-repeat="category in categories" href="#{{category.id}}" ><span>{{category.title}}</span></a>
-	       			blablabla<br />blablabla<br />blablabla<br />blablabla<br />
+ -->
+	       			<a href="#o-nas" ><span>O Eyrie</span></a>
+	       			<a href="#poradenstvi-a-sluzby" ><span>Naše služby</span></a>
+	       			<a href="#pro-inspiraci" ><span>Pro inspiraci</span></a>
+	       			<a href="#doporucujeme" ><span>Doporučujeme</span></a>
+	       			<a href="#osobnosti" ><span>Osobnosti</span></a>
+	       			<a href="#kontakt" ><span>Kontakt</span></a>
+ 	       			
 	        	</div>
 			</div>        	
         	<div class="contentContainer" id="divContent"></div>
