@@ -173,9 +173,20 @@ readerApp.controller('demoController', function($scope, $http, $q, $timeout) {
   });
 
 
-readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService', '$q', '$timeout', '$rootScope', '$location',
-	function($scope, $routeParams, dbService, $q, $timeout, $rootScope, $location) {
+readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService', '$q', '$timeout', '$rootScope', '$location', '$route', 
+	function($scope, $routeParams, dbService, $q, $timeout, $rootScope, $location, $route) {
 
+		var lastRoute = $route.current;
+		var notChangeUrl = false;
+	    $scope.$on('$locationChangeSuccess', function(event) {
+	    	if (notChangeUrl) {
+	    		$route.current = lastRoute;
+	    		notChangeUrl=false;
+	    		return;
+	    	}
+	    });
+	    
+	    
 		$scope.slideIndex=1;
 		$scope.items = [{txt:'asdasd'}];
 
@@ -260,18 +271,22 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 			
 			if (newValue>1) {
 				if (location.hash != "#/" + $scope.catId + "/" + $scope.items[newValue].id) {
-					console.log('xxx---- go:' + "#/" + $scope.catId + "/" + $scope.items[newValue].id);
-//					location.hash = "#/" + $scope.catId + "/" + $scope.items[newValue].id;
-//					$location.path("/" + $scope.catId + "/" + $scope.items[newValue].id).replace();
-					return;
+					notChangeUrl=true;
+					$location.path("/" + $scope.catId + "/" + $scope.items[newValue].id).replace();
 				}
 			}
 			
 			if ((newValue==1) && $scope.catId) {
 				if (location.hash != "#/" + $scope.catId) {
-					console.log('---- go:' + "#/" + $scope.catId);
+					notChangeUrl=true;
 					location.hash = "#/" + $scope.catId;
-					return;
+				}
+			}
+
+			if ((newValue==0) && $scope.catId) {
+				if (location.hash != "#/") {
+					notChangeUrl=true;
+					location.hash = "#/";
 				}
 			}
 			

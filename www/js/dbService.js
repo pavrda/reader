@@ -294,7 +294,12 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 	        navigator.splashscreen.hide();
 	    }, 1000);
 		$('#preLoaderDiv').hide();
-		$route.reload();		
+		if (location.hash == "#/") {
+			// na zacatku presmeruj na kategorii
+			location.hash = "#/pro-inspiraci";
+		} else {
+			$route.reload();					
+		}
 	}
 	window.localStorage.removeItem('eyrie-timestamp');
 	
