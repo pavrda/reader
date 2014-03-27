@@ -44,12 +44,15 @@ function onDeviceReady() {
 $('document').ready(function() {
 	
 //	$('#divActualCategory').on('click', function(e) {
-/*	
+
 	$('#vrsek').on('click', function(e) {
+		alert('123');
+
 		$('#navRubriky').toggle('fast');
 		e.stopPropagation(); 
+		alert('456');
 	});
-*/
+
 
 	$(document).on('click', function(e) {
 		$('#navRubriky:visible').toggle('fast');
@@ -65,8 +68,14 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 function rozbal(e) {
 	$('#navRubriky').toggle('fast');
-	e.stopPropagation(); 
+	e.stopPropagation();
+	alert(1);
 }
+
+function nic() {
+	alert('2');
+}
+
 
 </script>
         <div class="main">
@@ -75,10 +84,10 @@ function rozbal(e) {
 			</div>
 			<div id="vrsek">
 	        	<div class="header">
-	        		<a onclick="rozbal(event)" class="nav headerBlock" id="divActualCategory">{{actualCategoryTitle}}</a>
 <!-- 	        	
-	        		<div class="nav headerBlock" id="divActualCategory"><a href="javascript:rozbal()">{{actualCategoryTitle}}</a></div>
+	        		<a href="javascript:nic()" onclick="rozbal(event)" class="nav headerBlock" id="divActualCategory">{{actualCategoryTitle}}</a>
  -->	        		
+	        		<div class="nav headerBlock" id="divActualCategory">{{actualCategoryTitle}}</div>
 	        		<div class="logo headerBlock">
 	        			<a href="#/pro-inspiraci" onclick="event.stopPropagation()"><img src="img/logo64b.png" height="32" /></a>
 	        		</div>
