@@ -213,7 +213,7 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 
 			
 			tx.executeSql(
-					'SELECT id, txt, image, title FROM article WHERE category_id=?',
+					'SELECT id, txt, image, title, date_pub FROM article WHERE category_id=?',
 					[ $routeParams.catId ], querySuccess2,
 					dbService.errorDB);
 		}
@@ -222,7 +222,7 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 		$scope.initx = function() {
 			dbService.transaction(function(tx) {
 				tx.executeSql(
-						'SELECT id, txt, image, title FROM article WHERE category_id=?',
+						'SELECT id, txt, image, title, date_pub FROM article WHERE category_id=?',
 						[ $routeParams.catId ], querySuccess2,
 						dbService.errorDB);
 			}, dbService.errorDB);
@@ -274,6 +274,8 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 					notChangeUrl=true;
 					$location.path("/" + $scope.catId + "/" + $scope.items[newValue].id).replace();
 				}
+				$("div.articleItem").removeClass('selArticle');
+				$("div.articleItem[data-id='" + $scope.items[newValue].id + "']").addClass('selArticle');
 			}
 			
 			if ((newValue==1) && $scope.catId) {

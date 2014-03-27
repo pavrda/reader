@@ -288,7 +288,9 @@ xxxdiv.articleItem xxxhr {
 */
 */
 }
-
+div.articleItem {
+	padding-top: 0.5em;
+}
 
 div.articleItem hr {
 	color: #c0c0c0;
@@ -296,6 +298,7 @@ div.articleItem hr {
 	height: 1px;
 	border: 0;
 	width: 100%;
+	margin-bottom: 0px;
 }
 
 div.artDate {
@@ -449,4 +452,8 @@ img.artImg {
 div.articleItem a.bigCategory {
 	font-size: 200%;
 	margin-left: -2em;
+}
+
+.selArticle {
+	background-color: #c0c0c0;
 }

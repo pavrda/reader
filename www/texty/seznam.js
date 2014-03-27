@@ -42,7 +42,7 @@ var loader = [
 	"category":"pro-inspiraci",
 	"image_url":"bata-icon.jpg",
 	"url":"texty/tomas-bata.html",
-	"date_pub":"Tue, 18 Mar 2014 00:00:00 +0100"
+	"date_pub":"Tue, 19 Mar 2014 00:00:00 +0100"
 }, {
 	"id":"8",
 	"category":"pro-inspiraci",

@@ -52,7 +52,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 	}
 	
 
-	function initialLoaded() {
+	function initialLoaded(e) {
 		console.log('initialLoaded()');
 		window.localStorage.setItem('eyrie-timestamp', 1); // aby se npriste nevytvarela databaze, ale aby se provedla synchronizace
 		prepareSync();
@@ -83,7 +83,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (6, 'kontakt', 'Kontakt')");
 	    
 	    tx.executeSql('DROP TABLE IF EXISTS article');
-	    tx.executeSql('CREATE TABLE IF NOT EXISTS article (id unique, poradi unique, category_id, title, txt, image)');
+	    tx.executeSql('CREATE TABLE IF NOT EXISTS article (id unique, poradi unique, category_id, title, txt, image, date_pub)');
 	
 	}
 	
@@ -92,6 +92,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 		var sURL = loader[loaderCounter].url;
 		var category = convertCategory(loader[loaderCounter].category);
 		var sid = loader[loaderCounter].id;
+		var date_pub = loader[loaderCounter].date_pub;
 		if (sURL.substring(0,7) != "http://") {
 			// stahuji neco z aplikace
 			sURL = appBaseURL + "/" + sURL;
@@ -132,13 +133,13 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 	    	}
 
 		    db.transaction(function (tx) {
-		    	tx.executeSql('INSERT OR REPLACE INTO article (poradi, category_id, id, title, txt, image) VALUES (?,?,?,?,?,?)', [sid, category, sid, title, txt, image]);
+		    	tx.executeSql('INSERT OR REPLACE INTO article (poradi, category_id, id, title, txt, image, date_pub) VALUES (?,?,?,?,?,?,?)', [sid, category, sid, title, txt, image, date_pub]);
 		    	console.log("Stazeno ok:" + sURL);
 		    	loaderCounter ++;
 		    	stahni(stazenoOk, stazenoErr);
 		    }, function(e) {
 		    	console.log("Chyba pri vkladani do db:" + e.message);
-		    	stazenoErr();
+//		    	stazenoErr();
 		    	});
 	    }).
 	    error(function(data, status, headers, config) {
@@ -264,7 +265,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 	function prepareSync() {
 		lastSync = new Date().getTime();
 
-		$http({method: 'GET', url: 'feed.js'}).
+		$http({method: 'GET', url: 'http://work.pavrda.cz/eyrie.js'}).
 	    success(function(data, status, headers, config) {
 	    	loader = data;
 	    	if (loader.length) {
@@ -290,9 +291,11 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 	}
 	
 	function runApp() {
-		setTimeout(function() {
-	        navigator.splashscreen.hide();
-	    }, 1000);
+		if (window.cordova) {
+			setTimeout(function() {
+		        navigator.splashscreen.hide();
+		    }, 1000);
+		}
 		$('#preLoaderDiv').hide();
 		if (location.hash == "#/") {
 			// na zacatku presmeruj na kategorii
@@ -301,10 +304,16 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 			$route.reload();					
 		}
 	}
-	window.localStorage.removeItem('eyrie-timestamp');
+	
+	db.init = function() {
+		window.localStorage.removeItem('eyrie-timestamp');
+		initFs();
+	};
 	
 	// spust to - zacni s inicializaci filesystemu
-	initFs();
+	if (!window.cordova) {
+		db.init();
+	}
 
 	return db;
 }]);
