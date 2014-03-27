@@ -1,5 +1,5 @@
 
-readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $route, $timeout) {
+readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', function($http, $route, $timeout, $rootScope) {
 
 	var fs = null;		// filesystem
 	var dir = null;		// dir
@@ -7,6 +7,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 	
 	var loaderCounter = 0;
 	var lastSync = 0;
+	var nowSync = 0;
 	var appBaseURL = "";
 	
     db = window.openDatabase("Eyrie", "1.0", "Eyrie", 200000);
@@ -45,7 +46,6 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 				stahni(initialLoaded, initialLoaded);
 			});
 		} else {
-			lastSync = tstamp;
 			console.log('not first run - check for updates');
 			prepareSync();
 		}
@@ -83,7 +83,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (6, 'kontakt', 'Kontakt')");
 	    
 	    tx.executeSql('DROP TABLE IF EXISTS article');
-	    tx.executeSql('CREATE TABLE IF NOT EXISTS article (id unique, poradi unique, category_id, title, txt, image, date_pub)');
+	    tx.executeSql('CREATE TABLE IF NOT EXISTS article (id unique, poradi unique, category_id, title, txt, image, date_pub, icon)');
 	
 	}
 	
@@ -92,7 +92,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 		var sURL = loader[loaderCounter].url;
 		var category = convertCategory(loader[loaderCounter].category);
 		var sid = loader[loaderCounter].id;
-		var date_pub = loader[loaderCounter].date_pub;
+		var date_pub = new Date(loader[loaderCounter].date_pub).toISOString();
 		if (sURL.substring(0,7) != "http://") {
 			// stahuji neco z aplikace
 			sURL = appBaseURL + "/" + sURL;
@@ -101,7 +101,13 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 		console.log("sURL:" + sURL);
 		console.log("baseURL:" + baseURL);
 
-		var image = saveImg(loader[loaderCounter].image_url, sURL);
+		var image = loader[loaderCounter].image_url;
+		var icon = "";
+		if (image) {
+			icon = image = saveImg(image, sURL);
+		} else {
+			icon = saveImg(appBaseURL + "/" + "texty/clanek.jpg", sURL);
+		}
 		
 		
 	    $http({method: 'GET', url: sURL}).
@@ -133,7 +139,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 	    	}
 
 		    db.transaction(function (tx) {
-		    	tx.executeSql('INSERT OR REPLACE INTO article (poradi, category_id, id, title, txt, image, date_pub) VALUES (?,?,?,?,?,?,?)', [sid, category, sid, title, txt, image, date_pub]);
+		    	tx.executeSql('INSERT OR REPLACE INTO article (poradi, category_id, id, title, txt, image, date_pub, icon) VALUES (?,?,?,?,?,?,?,?)', [sid, category, sid, title, txt, image, date_pub, icon]);
 		    	console.log("Stazeno ok:" + sURL);
 		    	loaderCounter ++;
 		    	stahni(stazenoOk, stazenoErr);
@@ -180,6 +186,15 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 
 	function convertCategory(s) {
 		if (s == "Pro inspiraci") return "pro-inspiraci";
+		if (s == "Aktuální nabídka") return "pro-inspiraci";
+		if (s == "Osobnosti Eyrie") return "pro-inspiraci";
+		if (s == "Příběhy firem") return "pro-inspiraci";
+		if (s == "K přečtění") return "pro-inspiraci";
+		if (s == "Již proběhlo") return "pro-inspiraci";
+		if (s == "K návštěvě") return "pro-inspiraci";
+		if (s == "vývěska") return "pro-inspiraci";
+		
+		
 		return s;
 	}
 
@@ -196,7 +211,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 		var prefix = dir.toURL() + "/";
 		var resUrl = prefix + hash + ext;
 
-		if (imgSrc.substring(0,7) == "http://") {
+		if ((imgSrc.substring(0,7) == "http://") || (imgSrc.substring(0,8) == "https://") || (imgSrc.substring(0,7) == "file://"))  {
 			fname = imgSrc;
 		} else if (imgSrc.charAt(0) == "/"){
 			var pi = pageUrl.indexOf("/");
@@ -222,7 +237,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 			        console.log("download complete: " + entry.fullPath);
 			    },
 			    function(error) {
-			    	alert('error:' + error.code);
+//			    	alert('error:' + error.code);
 			        console.log("download error source " + error.source);
 			        console.log("download error target " + error.target);
 			        console.log("upload error code" + error.code);
@@ -263,9 +278,10 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 	
 
 	function prepareSync() {
-		lastSync = new Date().getTime();
+		lastSync = window.localStorage.getItem('eyrie-timestamp');
+		nowSync = Math.round(new Date().getTime()/1000);
 
-		$http({method: 'GET', url: 'http://work.pavrda.cz/eyrie.js'}).
+		$http({method: 'GET', url: 'http://vyvoj.bzcompany.cz/everesta/eyrie.cz/rss/json/?changed=' + lastSync}).
 	    success(function(data, status, headers, config) {
 	    	loader = data;
 	    	if (loader.length) {
@@ -286,7 +302,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 	}
 	
 	function syncedOK() {
-		window.localStorage.setItem('eyrie-timestamp', lastSync);
+		window.localStorage.setItem('eyrie-timestamp', nowSync);
 		runApp();
 	}
 	
@@ -296,6 +312,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 		        navigator.splashscreen.hide();
 		    }, 1000);
 		}
+//		$timeout(prepareUpdate, 100000);
 		$('#preLoaderDiv').hide();
 		if (location.hash == "#/") {
 			// na zacatku presmeruj na kategorii
@@ -305,8 +322,49 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', function($http, $
 		}
 	}
 	
+	function prepareUpdate() {
+		$timeout(prepareUpdate, 10000);
+
+		lastSync = window.localStorage.getItem('eyrie-timestamp');
+		nowSync = Math.round(new Date().getTime()/1000);
+		
+		console.log(lastSync);
+//		$http({method: 'GET', url: 'http://work.pavrda.cz/eyrie.js'}).
+		$http({method: 'GET', url: 'http://vyvoj.bzcompany.cz/everesta/eyrie.cz/rss/json/?changed=' + lastSync}).
+	    success(function(data, status, headers, config) {
+	    	loader = data;
+	    	if (loader.length) {
+	    		console.log('Pocet aktualizaci:' + loader.length);	    		
+	    		loaderCounter=0;
+	    		stahni(updatedOK, updatedError);
+	    	} else {
+	    		console.log('Nic k aktualizaci');
+	    		updatedOK();
+	    	}
+	    }).
+	    error(function(data, status, headers, config) {
+	    	console.log('Nelze nacist feed');
+	    	// nejde stahnout feed, treba nejsem na netu
+	    	updatedError();
+	    });
+		
+	}
+	
+	function updatedOK() {
+		window.localStorage.setItem('eyrie-timestamp', nowSync);
+		if (loader.length) {
+			$rootScope.$broadcast("contentUpdated");
+		}
+		console.log("update ok");
+	}
+	
+	function updatedError() {
+		console.log("update error");
+	}
+	
 	db.init = function() {
 		window.localStorage.removeItem('eyrie-timestamp');
+//		window.localStorage.setItem('eyrie-timestamp', '2394924400');
 		initFs();
 	};
 	

@@ -64,7 +64,7 @@ readerApp.filter('datumPred', function() {
 		if (!input) return "";
 		var dp = new Date(input);
 		var dif = Math.round((new Date().getTime() - dp.getTime()) / (1000 * 60));
-		if (dif<0) return "před chvílí";
+//		if (dif<0) return "před chvílí";
 		if (dif<2) return "před minutou";
 		if (dif<60) return "před " + dif + " minutami";
 		dif = Math.round(dif/60);

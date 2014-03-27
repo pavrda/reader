@@ -446,7 +446,7 @@ div.clanek {
 }
 
 img.artImg {
-	display: none;
+	xdisplay: none;
 }
 
 div.articleItem a.bigCategory {

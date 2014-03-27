@@ -186,6 +186,17 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 	    	}
 	    });
 	    
+	    $scope.$on('contentUpdated', function(event) {
+	    	if (!$routeParams.artId) {
+		    	dbService.transaction(function (tx) {
+		    		tx.executeSql(
+							'SELECT id, txt, image, title, date_pub FROM article WHERE category_id=?',
+							[ $routeParams.catId ], querySuccess2,
+							dbService.errorDB);
+		    	}, dbService.errorDB);
+	    	}
+	    });
+	    
 	    
 		$scope.slideIndex=1;
 		$scope.items = [{txt:'asdasd'}];
@@ -213,20 +224,11 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 
 			
 			tx.executeSql(
-					'SELECT id, txt, image, title, date_pub FROM article WHERE category_id=?',
+					'SELECT id, txt, image, title, date_pub, icon FROM article WHERE category_id=? ORDER BY date_pub DESC',
 					[ $routeParams.catId ], querySuccess2,
 					dbService.errorDB);
 		}
 		
-		
-		$scope.initx = function() {
-			dbService.transaction(function(tx) {
-				tx.executeSql(
-						'SELECT id, txt, image, title, date_pub FROM article WHERE category_id=?',
-						[ $routeParams.catId ], querySuccess2,
-						dbService.errorDB);
-			}, dbService.errorDB);
-		};
 	
 		// Query the success callback
 		function querySuccess2(tx, results) {
@@ -248,6 +250,9 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 				if (!artId) {
 					ta[j] = tb[i];
 					ta[j].isArticle=true;
+//					if (ta[j].image.indexOf("/clanek.jpg")<0) {
+//						ta[j].bigImage = ta[j].image;
+//					}
 					j++;
 //					if (ta[i+2].id == artId) { idx = i; alert(i);}										
 				}
@@ -275,7 +280,14 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 					$location.path("/" + $scope.catId + "/" + $scope.items[newValue].id).replace();
 				}
 				$("div.articleItem").removeClass('selArticle');
-				$("div.articleItem[data-id='" + $scope.items[newValue].id + "']").addClass('selArticle');
+				var ai = $("div.articleItem[data-id='" + $scope.items[newValue].id + "']");
+				var pi = ai.parent();
+				ai.addClass('selArticle');
+				var sy = ai.offset().top + pi.scrollTop() - pi.height()/2; // - 50;
+				console.log("parent:" + pi.scrollTop());
+				console.log("offset:" + ai.offset().top);
+				console.log("scrollto:" + sy );
+				pi.scrollTop(sy);
 			}
 			
 			if ((newValue==1) && $scope.catId) {
