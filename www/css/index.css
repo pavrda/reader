@@ -190,7 +190,7 @@ div#preLoaderDiv
 div.rubriky {
 	background: #001d3b;
 	position: absolute;
-	width: 8em;
+	width: 9em;
 	right: 0px;
 	display: none;
 	xfont-size: 130%;
@@ -303,17 +303,22 @@ div.articleItem hr {
 
 div.artDate {
 	margin-top: 2ex;
-	font-style: italic;
 	color: #808080;
 	font-size: 80%;
+	font-weight: normal;
 }
 
 div.copyright {
+	padding: 0.5ex 0.5ex 0.5ex 0.5ex;
 	width: 100%;
-	text-align: center;
+	text-align: left;
 	color: #004167;
 }
 
+div.copyright span {
+	float: right;
+	padding-right: 1ex;
+}
 
 .divArticle {
 	margin: 0.5em 0.5em 0.5em 0.5em;
@@ -447,6 +452,20 @@ div.clanek {
 
 img.artImg {
 	xdisplay: none;
+	vertical-align: top;
+}
+
+div.artImageTitle {
+	background-color: rgba(255,255,128,0.5);
+	top: -40px;
+	position: relative;
+	height: 40px;
+	float: left;
+	width: 100%;
+}
+
+div.artImageTitle div {
+	margin: 0.5ex 0.5ex 0.5ex 0.5ex;
 }
 
 div.articleItem a.bigCategory {
@@ -457,3 +476,6 @@ div.articleItem a.bigCategory {
 .selArticle {
 	background-color: #c0c0c0;
 }
+
+
+

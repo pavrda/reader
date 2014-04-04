@@ -87,6 +87,19 @@ readerApp.filter('datumPred', function() {
 	};
 });
 
+readerApp.filter('datumPred2', function() {
+	return function(input) {
+		if (!input) return "";
+		var dp = new Date(input);
+		var dif = Math.round((new Date().getTime() - dp.getTime()) / (1000 * 60));
+		// v dif jsou minuty
+		if (dif<60) return "právě teď";
+		if (dif<120) return "před hodinou";
+		return "dnes";
+	};
+});
+
+
 
 readerApp.directive('showMenu', function() {
     return function(scope, element, attrs) {

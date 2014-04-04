@@ -241,6 +241,7 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 			var idx = -1;
 //			alert(len);
 			var j = 2; 
+			var showDateLimit = new Date().getTime() - 1000*60*60*24;
 			for (var i = 0; i < len; i++) {
 				tb[i] = results.rows.item(i);
 				if (tb[i].id == artId) {
@@ -248,13 +249,14 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 					idx=1;
 				}
 				if (!artId) {
+					// pokud v textu neni titulek, pridej ho tam
 					ta[j] = tb[i];
+					var t = ta[j].txt;
+					if (t.indexOf("<h1") < 0) t = "<h1>" + ta[j].title + "</h1>" + t;
+					ta[j].txt2 = t;
 					ta[j].isArticle=true;
-//					if (ta[j].image.indexOf("/clanek.jpg")<0) {
-//						ta[j].bigImage = ta[j].image;
-//					}
+					ta[j].date_show=((new Date(ta[j].date_pub).getTime()) >  showDateLimit);
 					j++;
-//					if (ta[i+2].id == artId) { idx = i; alert(i);}										
 				}
 			}
 			ta[1].articles = tb;

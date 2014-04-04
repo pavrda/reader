@@ -93,6 +93,8 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 		var category = convertCategory(loader[loaderCounter].category);
 		var sid = loader[loaderCounter].id;
 		var date_pub = new Date(loader[loaderCounter].date_pub).toISOString();
+		var content = loader[loaderCounter].content;
+		var title = loader[loaderCounter].title;
 		if (sURL.substring(0,7) != "http://") {
 			// stahuji neco z aplikace
 			sURL = appBaseURL + "/" + sURL;
@@ -116,11 +118,15 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 	    	var j = data.indexOf('   <span class="clear-box"></span>');
 	    	var txt = data.substring(i + 24,j);
 	    	
+	    	if (content) txt = content;
+	    	
 	    	i = data.indexOf('<title>');
 	    	j = data.indexOf('</title>');
-	    	var title = data.substring(i + 7,j);
-	    	j = title.indexOf(' |');
-	    	if (j) title = title.substring(0,j);
+	    	if (!title) {
+		    	title = data.substring(i + 7,j);
+		    	j = title.indexOf(' |');
+		    	if (j) title = title.substring(0,j);
+	    	}
 	    	
 	    	console.log("title:" + title);
 	    	i=0;

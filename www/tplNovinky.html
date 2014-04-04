@@ -7,7 +7,7 @@
 				</div>
 				<hr width="100%" />
 			</div>
-			<div class="copyright">© 2014 EYRIE</div>
+			<div class="copyright"><span>Created byl Gapanet solution s.r.o.</span>© 2014 Eyrie s.r.o.</div>
 		</div>
 
 		<div class="category" ng-if="article.isSecond">
@@ -24,7 +24,7 @@
 				<div>asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br /></div>
 				<div>asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br /></div>
  -->				
-				<div class="copyright">© 2014 EYRIE</div>
+			<div class="copyright"><span>Created byl Gapanet solution s.r.o.</span>© 2014 Eyrie s.r.o.</div>
 				        	<br /><br /><br />&nbsp;
 				
 			</div>
@@ -32,8 +32,11 @@
 
 		<div class="clanek" ng-if="article.isArticle">
 			<div class="cl">
-				<img ng-src="{{article.image}}" width="100%" class="artImg" ng-if="article.image"/>
-				<div ng-bind-html="article.txt" class="divArticle text"></div>
+				<div class="artImage">
+					<img ng-src="{{article.image}}" width="100%" class="artImg" ng-if="article.image"/>
+					<div class="artImageTitle" ng-if="article.date_show"><div>Publikováno {{article.date_pub | datumPred2}}</div></div>
+				</div>
+				<div ng-bind-html="article.txt2" class="divArticle text"></div>
 	        	<br /><br /><br />&nbsp;
 			</div>
 		</div>
