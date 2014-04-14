@@ -10,7 +10,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 	var nowSync = 0;
 	var appBaseURL = "";
 	
-    db = window.openDatabase("Eyrie", "1.0", "Eyrie", 200000);
+    db = window.openDatabase("Eyrie", "1.0", "Eyrie", 20*1000*1000);
 	
 	function initFs() {		
 		var s = location.origin + location.pathname;
@@ -246,7 +246,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 
 			fileTransfer.download(
 			    fname,
-			    dir.fullPath + "/" + hash + ext,
+			    dir.toURL() + "/" + hash + ext,
 			    function(entry) {
 //			    	alert('stazeno:' + fname);
 			        console.log("download complete: " + entry.fullPath);

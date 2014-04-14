@@ -45,7 +45,7 @@ readerApp.config( [
           function( $compileProvider )
           {   
 //              $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|filesystem:http):/);
-              $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|filesystem:http):/);	//kvuli obrazkum z filesystemu
+              $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|cdvfile|filesystem:http):/);	//kvuli obrazkum z filesystemu
               // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
           }
       ]);
