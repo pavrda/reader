@@ -104,13 +104,19 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 		console.log("baseURL:" + baseURL);
 
 		var image = loader[loaderCounter].image_url;
-		var icon = "";
-		if (image) {
-			icon = image = saveImg(image, sURL);
+		var icon = loader[loaderCounter].icon_url;
+		if (!icon) {
+			if (image) {
+				icon = image = saveImg(image, sURL);
+			} else {
+				icon = saveImg(appBaseURL + "/" + "texty/clanek.jpg", sURL);
+			}
 		} else {
-			icon = saveImg(appBaseURL + "/" + "texty/clanek.jpg", sURL);
+			icon = saveImg(icon, sURL);
+			if (image) {
+				image = saveImg(image, sURL);
+			}
 		}
-		
 		
 	    $http({method: 'GET', url: sURL}).
 	    success(function(data, status, headers, config) {
@@ -125,7 +131,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 	    	if (!title) {
 		    	title = data.substring(i + 7,j);
 		    	j = title.indexOf(' |');
-		    	if (j) title = title.substring(0,j);
+		    	if (j>0) title = title.substring(0,j);
 	    	}
 	    	
 	    	console.log("title:" + title);
@@ -191,6 +197,9 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 	};
 
 	function convertCategory(s) {
+		
+		console.log("kategorie: " + s);
+		
 		if (s == "Pro inspiraci") return "pro-inspiraci";
 		if (s == "Aktuální nabídka") return "pro-inspiraci";
 		if (s == "Osobnosti Eyrie") return "pro-inspiraci";

@@ -313,6 +313,7 @@ div.copyright {
 	width: 100%;
 	text-align: left;
 	color: #004167;
+	font-size: 10pt;
 }
 
 div.copyright span {
@@ -372,6 +373,8 @@ div.divArticle blockquote {
 .text p a           { }
 /*.text p:last-child,
 .text ul:last-child { padding-bottom: 0; }*/
+
+/*
 .text ul,
 .text ol            { }
 .text li            { padding: 3px 0; list-style-type: none; list-style-position: outside; }
@@ -383,6 +386,8 @@ div.divArticle blockquote {
 .text ul ul,
 .text ul ol,
 .text ol ol         { margin-left: 0; padding-top: 5px; padding-bottom: 10px; }
+*/
+
 .text .rule,
 .text hr            { margin-bottom: 10px; display: block; height: 16px; border-width: 0; border: none; outline: none; background: none; border-bottom: 1px solid #f1f1f1; }
 .text table         { }
@@ -456,7 +461,7 @@ img.artImg {
 }
 
 div.artImageTitle {
-	background-color: rgba(255,255,128,0.5);
+	background-color: rgba(255,255,255,0.75);
 	top: -40px;
 	position: relative;
 	height: 40px;
