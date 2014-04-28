@@ -199,7 +199,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 	function convertCategory(s) {
 		
 		console.log("kategorie: " + s);
-		
+/*		
 		if (s == "Pro inspiraci") return "pro-inspiraci";
 		if (s == "Aktuální nabídka") return "pro-inspiraci";
 		if (s == "Osobnosti Eyrie") return "pro-inspiraci";
@@ -208,6 +208,24 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 		if (s == "Již proběhlo") return "pro-inspiraci";
 		if (s == "K návštěvě") return "pro-inspiraci";
 		if (s == "vývěska") return "pro-inspiraci";
+
+		
+		Již proběhlo
+		poradenstvi-a-sluzby
+		vývěska		
+*/
+
+		if (s == "K návštěvě") return "doporucujeme";
+		if (s == "KPZ podnikatele") return "doporucujeme";
+		
+		if (s == "Průzkumy a dotazníky") return "pro-inspiraci";
+		if (s == "Příběhy firem") return "pro-inspiraci";
+		if (s == "K přečtení") return "pro-inspiraci";
+		
+		if (s == "Aktuální nabídka") return "osobnosti";
+		if (s == "Osobnosti v Eyrie") return "osobnosti";
+
+		
 		
 		
 		return s;
@@ -296,7 +314,8 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 		lastSync = window.localStorage.getItem('eyrie-timestamp');
 		nowSync = Math.round(new Date().getTime()/1000);
 
-		$http({method: 'GET', url: 'http://vyvoj.bzcompany.cz/everesta/eyrie.cz/rss/json/?changed=' + lastSync}).
+//		$http({method: 'GET', url: 'http://vyvoj.bzcompany.cz/everesta/eyrie.cz/rss/json/?changed=' + lastSync}).
+		$http({method: 'GET', url: 'http://www.eyrie.cz/rss/json/?changed=' + lastSync}).
 	    success(function(data, status, headers, config) {
 	    	loader = data;
 	    	if (loader.length) {
@@ -345,7 +364,8 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 		
 		console.log(lastSync);
 //		$http({method: 'GET', url: 'http://work.pavrda.cz/eyrie.js'}).
-		$http({method: 'GET', url: 'http://vyvoj.bzcompany.cz/everesta/eyrie.cz/rss/json/?changed=' + lastSync}).
+//		$http({method: 'GET', url: 'http://vyvoj.bzcompany.cz/everesta/eyrie.cz/rss/json/?changed=' + lastSync}).
+		$http({method: 'GET', url: 'http://www.eyrie.cz/rss/json/?changed=' + lastSync}).
 	    success(function(data, status, headers, config) {
 	    	loader = data;
 	    	if (loader.length) {
