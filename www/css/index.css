@@ -483,10 +483,10 @@ div.articleItem a.bigCategory {
 }
 
 
-body {
+body.ios {
 	margin-top: 20px;
 }
 
-#vrsek {
+#vrsek.ios {
 	top: 20px;
 }

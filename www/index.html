@@ -54,6 +54,11 @@ $('document').ready(function() {
 		$('#navRubriky:visible').toggle('fast');
 	});
 	
+	if (window.device && parseFloat(window.device.version) >= 7) {
+		$('body').addClass('ios');
+		$('#vrsek').addClass('ios');
+	}
+	
 });
 
 //document.addEventListener("deviceready", onDeviceReady, false);	
