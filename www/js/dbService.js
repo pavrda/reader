@@ -217,9 +217,11 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 		vývěska		
 */
 
+		if (s == "Doporučujeme") return "doporucujeme";
 		if (s == "K návštěvě") return "doporucujeme";
 		if (s == "KPZ podnikatele") return "doporucujeme";
 		
+		if (s == "Pro inspiraci") return "pro-inspiraci";
 		if (s == "Průzkumy a dotazníky") return "pro-inspiraci";
 		if (s == "Příběhy firem") return "pro-inspiraci";
 		if (s == "K přečtení") return "pro-inspiraci";
@@ -227,6 +229,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 		if (s == "Aktuální nabídka") return "osobnosti";
 		if (s == "Osobnosti v Eyrie") return "osobnosti";
 
+		if (s == "Workshopy a semináře") return "poradenstvi-a-sluzby";
 		
 		
 		
