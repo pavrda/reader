@@ -317,7 +317,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 		nowSync = Math.round(new Date().getTime()/1000);
 
 //		$http({method: 'GET', url: 'http://vyvoj.bzcompany.cz/everesta/eyrie.cz/rss/json/?changed=' + lastSync}).
-		$http({method: 'GET', url: 'http://www.eyrie.cz/rss/json/?changed=' + lastSync}).
+		$http({method: 'GET', url: 'http://www.eyrie.cz/rss/json/grp1?changed=' + lastSync}).
 	    success(function(data, status, headers, config) {
 	    	loader = data;
 	    	if (loader.length) {
@@ -367,7 +367,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 		console.log(lastSync);
 //		$http({method: 'GET', url: 'http://work.pavrda.cz/eyrie.js'}).
 //		$http({method: 'GET', url: 'http://vyvoj.bzcompany.cz/everesta/eyrie.cz/rss/json/?changed=' + lastSync}).
-		$http({method: 'GET', url: 'http://www.eyrie.cz/rss/json/?changed=' + lastSync}).
+		$http({method: 'GET', url: 'http://www.eyrie.cz/rss/json/grp1?changed=' + lastSync}).
 	    success(function(data, status, headers, config) {
 	    	loader = data;
 	    	if (loader.length) {
