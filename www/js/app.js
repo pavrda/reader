@@ -59,6 +59,11 @@ readerApp.run(['$rootScope', 'dbService',
 	
     document.addEventListener('deviceready', function() {
         $rootScope.$apply(function() {
+        	if (window.device && parseFloat(window.device.version) >= 7) {
+        		$('body').addClass('ios');
+        		$('#vrsek').addClass('ios');
+        	}
+
         	dbService.init();
         });
     });
