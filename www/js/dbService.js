@@ -134,6 +134,8 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 		    	if (j>0) title = title.substring(0,j);
 	    	}
 	    	
+	    	txt=txt.replace(/href=/g, "fref="); //zakazat odkazy v textech
+	    	
 	    	console.log("title:" + title);
 	    	i=0;
 	    	while( (i = txt.indexOf('<img', i))>=0 ) {
