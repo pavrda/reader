@@ -352,7 +352,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 		    }, 1000);
 		}
 //		$timeout(prepareUpdate, 100000);
-		$('#preLoaderDiv').hide();
+//		$('#preLoaderDiv').hide();
 		if (location.hash == "#/") {
 			// na zacatku presmeruj na kategorii
 			location.hash = "#/pro-inspiraci";
