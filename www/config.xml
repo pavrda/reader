@@ -120,6 +120,8 @@
     <gap:splash src="res/screen/ios/splash768x1004.png"  gap:platform="ios"    width="768" height="1004" />
     <gap:splash src="res/screen/ios/splash640x960.png"   gap:platform="ios"    width="640" height="960" />
     <gap:splash src="res/screen/ios/splash320x480.png"   gap:platform="ios"    width="320" height="480" />
+    
+    <gap:splash src="res/screen/ios/Default-Portrait@2x.png" gap:platform="ios" width="1536" height="2048" /> 
 
 
 
