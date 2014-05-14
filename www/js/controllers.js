@@ -274,7 +274,7 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 			
 			$scope.$apply();
 //			alert('hotovo');
-			if (len>1) $('#preLoaderDiv').hide();
+			if (len>0) $('#preLoaderDiv').hide();
 		}
 		
 		$scope.$watch('slideIndex', function(newValue, oldValue) {
