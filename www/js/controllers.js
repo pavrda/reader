@@ -235,6 +235,8 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 //			$scope.items.splice(2,$scope.items.length-2);
 			
 			var len = results.rows.length;
+			if (len>5) len=5; // limit kvuli rychlosti a velikosti DOMu
+			
 			var ta = [{txt:"prvni", isFirst:true},{txt:"druhy", isSecond:true}];
 			var tb = [];
 			var artId = $routeParams.artId;
