@@ -176,6 +176,8 @@ readerApp.controller('demoController', function($scope, $http, $q, $timeout) {
 readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService', '$q', '$timeout', '$rootScope', '$location', '$route', 
 	function($scope, $routeParams, dbService, $q, $timeout, $rootScope, $location, $route) {
 
+		$('#preLoaderDiv').show();
+	
 		var lastRoute = $route.current;
 		var notChangeUrl = false;
 	    $scope.$on('$locationChangeSuccess', function(event) {
@@ -235,7 +237,6 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 //			$scope.items.splice(2,$scope.items.length-2);
 			
 			var len = results.rows.length;
-			if (len>5) len=5; // limit kvuli rychlosti a velikosti DOMu
 			
 			var ta = [{txt:"prvni", isFirst:true},{txt:"druhy", isSecond:true}];
 			var tb = [];
@@ -273,6 +274,7 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 			
 			$scope.$apply();
 //			alert('hotovo');
+			$('#preLoaderDiv').hide();
 		}
 		
 		$scope.$watch('slideIndex', function(newValue, oldValue) {
