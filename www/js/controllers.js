@@ -238,12 +238,22 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 			
 			var len = results.rows.length;
 			
-			var ta = [{txt:"prvni", isFirst:true},{txt:"druhy", isSecond:true}];
+			var ta;
+			var j;
+			
+			if ($routeParams.catId=="kontakt") {
+				ta = [{txt:"prvni", isFirst:true}];
+				j = 1; 
+				
+			} else {
+				ta = [{txt:"prvni", isFirst:true},{txt:"druhy", isSecond:true}];
+				j = 2; 
+				
+			}
 			var tb = [];
 			var artId = $routeParams.artId;
 			var idx = -1;
 //			alert(len);
-			var j = 2; 
 			var showDateLimit = new Date().getTime() - 1000*60*60*24;
 			for (var i = 0; i < len; i++) {
 				tb[i] = results.rows.item(i);

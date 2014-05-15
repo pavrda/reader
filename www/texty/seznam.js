@@ -15,6 +15,40 @@ var loader = [
 	"url":"texty/o-nas.html",
 	"date_pub":"Tue, 18 Mar 2014 00:00:00 +0100"
 
+		
+		
+		
+}, {
+	"id":"18",
+	"category":"poradenstvi-a-sluzby",
+	"image_url":"startup.jpg",
+	"icon_url":"startup-icon.jpg",
+	"url":"texty/startup.html",
+	"date_pub":"Tue, 18 Mar 2014 00:00:04 +0100"
+}, {
+	"id":"17",
+	"category":"poradenstvi-a-sluzby",
+	"image_url":false,
+	"xicon_url":"poradenstvi_firmam-icon.jpg",
+	"icon_url":"krizovy-management-icon.jpg",
+	"url":"texty/poradenstvi_firmam.html",
+	"date_pub":"Tue, 18 Mar 2014 00:00:03 +0100"
+}, {
+	"id":"6",
+	"category":"poradenstvi-a-sluzby",
+	"image_url":false,
+	"icon_url":"rozvoj-osobnosti-icon.jpg",
+	"url":"texty/osobnost-a-jeji-rozvoj-36.html",
+	"date_pub":"Tue, 18 Mar 2014 00:00:02 +0100"
+}, {
+	"id":"19",
+	"category":"poradenstvi-a-sluzby",
+	"image_url":false,
+	"title":"Networking",
+	"url":"texty/networking.html",
+	"date_pub":"Tue, 18 Mar 2014 00:00:01 +0100"
+
+/*
 }, {
 	"id":"3",
 	"category":"poradenstvi-a-sluzby",
@@ -36,27 +70,8 @@ var loader = [
 	"icon_url":"mep-icon.jpg",
 	"url":"texty/mep-management-employment-potential-34.html",
 	"date_pub":"Tue, 18 Mar 2014 00:00:00 +0100"
-}, {
-	"id":"6",
-	"category":"poradenstvi-a-sluzby",
-	"image_url":false,
-	"icon_url":"clanek.jpg",
-	"url":"texty/osobnost-a-jeji-rozvoj-36.html",
-	"date_pub":"Tue, 18 Mar 2014 00:00:00 +0100"
-}, {
-	"id":"17",
-	"category":"poradenstvi-a-sluzby",
-	"image_url":false,
-	"icon_url":"poradenstvi_firmam-icon.jpg",
-	"url":"texty/poradenstvi_firmam.html",
-	"date_pub":"Tue, 18 Mar 2014 00:00:00 +0100"
-}, {
-	"id":"18",
-	"category":"poradenstvi-a-sluzby",
-	"image_url":"startup.jpg",
-	"icon_url":"startup-icon.jpg",
-	"url":"texty/startup.html",
-	"date_pub":"Tue, 18 Mar 2014 00:00:00 +0100"
+*/
+		
 		
 }, {
 	"id":"7",
@@ -102,7 +117,7 @@ var loader = [
 	"url":"texty/zimni-plavby-prazskymi-benatkami.html",
 	"date_pub":"Tue, 18 Mar 2014 00:00:00 +0100"
 
-
+/*
 }, {
 	"id":"13",
 	"category":"osobnosti",
@@ -124,6 +139,7 @@ var loader = [
 	"image_url":"Krivanek-big.jpg",
 	"url":"texty/stihle-mysleni-ve-vyrobe-i-administrative.html",
 	"date_pub":"Tue, 18 Mar 2014 00:00:00 +0100"
+*/
 }, {
 	"id":"16",
 	"category":"kontakt",
