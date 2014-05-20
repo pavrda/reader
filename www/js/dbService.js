@@ -346,11 +346,6 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 	}
 	
 	function runApp() {
-		if (window.cordova) {
-			setTimeout(function() {
-		        navigator.splashscreen.hide();
-		    }, 2000);
-		}
 //		$timeout(prepareUpdate, 100000);
 		$('#preLoaderDiv').hide();
 		if (location.hash == "#/") {
@@ -407,6 +402,12 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 //		window.localStorage.setItem('eyrie-timestamp', '2394924400');
 		initFs();
 	};
+	
+	if (window.cordova) {
+		setTimeout(function() {
+	        navigator.splashscreen.hide();
+	    }, 2000);
+	}	
 	
 	// spust to - zacni s inicializaci filesystemu
 	if (!window.cordova) {
