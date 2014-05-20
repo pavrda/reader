@@ -348,8 +348,8 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 	function runApp() {
 		if (window.cordova) {
 			setTimeout(function() {
-//jpv		        navigator.splashscreen.hide();
-		    }, 1000);
+		        navigator.splashscreen.hide();
+		    }, 2000);
 		}
 //		$timeout(prepareUpdate, 100000);
 		$('#preLoaderDiv').hide();
