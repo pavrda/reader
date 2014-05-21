@@ -28,7 +28,7 @@ var loader = [
 }, {
 	"id":"17",
 	"category":"poradenstvi-a-sluzby",
-	"image_url":false,
+	"image_url":"poradenstvi_firmam-article.jpg",
 	"xicon_url":"poradenstvi_firmam-icon.jpg",
 	"icon_url":"krizovy-management-icon.jpg",
 	"url":"texty/poradenstvi_firmam.html",
@@ -36,14 +36,14 @@ var loader = [
 }, {
 	"id":"6",
 	"category":"poradenstvi-a-sluzby",
-	"image_url":false,
+	"image_url":"rozvoj-osobnosti.jpg",
 	"icon_url":"rozvoj-osobnosti-icon.jpg",
 	"url":"texty/osobnost-a-jeji-rozvoj-36.html",
 	"date_pub":"Tue, 18 Mar 2014 00:00:02 +0100"
 }, {
 	"id":"19",
 	"category":"poradenstvi-a-sluzby",
-	"image_url":false,
+	"image_url":"networking.jpg",
 	"title":"Networking",
 	"url":"texty/networking.html",
 	"date_pub":"Tue, 18 Mar 2014 00:00:01 +0100"
