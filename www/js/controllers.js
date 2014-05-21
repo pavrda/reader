@@ -177,6 +177,7 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 	function($scope, $routeParams, dbService, $q, $timeout, $rootScope, $location, $route) {
 
 		$('#preLoaderDiv').show();
+		navigator.notification.activityStart();
 	
 		var lastRoute = $route.current;
 		var notChangeUrl = false;

@@ -144,8 +144,8 @@ img#preloaderAnimation
 	position: relative;
 	top: 50%;
 	left: 50%;
-	margin-left: -32px;
-	margin-top: -32px;
+	margin-left: -16px;
+	margin-top: -16px;
 }
 
 div#preLoaderDiv
