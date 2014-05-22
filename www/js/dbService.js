@@ -346,17 +346,18 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 	}
 	
 	function runApp() {
+		$timeout(prepareUpdate, 1 * 60 * 1000);	// prvni aktualizace po minut
 		$('#preLoaderDiv').hide();
 		if (location.hash == "#/") {
 			// na zacatku presmeruj na kategorii
-			location.hash = "#/pro-inspiraci";
+			location.hash = "#/pro-inspiraci?t=" + new Date().getTime();
 		} else {
 			$route.reload();					
 		}
 	}
 	
 	function prepareUpdate() {
-		$timeout(prepareUpdate, 10000);
+		$timeout(prepareUpdate, 5 * 60 * 1000); // dalsi aktualizace po 5 minutach
 
 		lastSync = window.localStorage.getItem('eyrie-timestamp');
 		nowSync = Math.round(new Date().getTime()/1000);
@@ -397,7 +398,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 	}
 	
 	db.init = function() {
-//		window.localStorage.removeItem('eyrie-timestamp');	// odkomentovat, kdyz chci pokazde zacinat od zacatku
+		window.localStorage.removeItem('eyrie-timestamp');	// odkomentovat, kdyz chci pokazde zacinat od zacatku
 		initFs();
 	};
 		

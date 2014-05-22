@@ -179,7 +179,7 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 
 //		$('#preLoaderDiv').show();
 //		navigator.notification.activityStart();
-		if (showSpinner) window.plugins.spinnerDialog.show();
+		if (window.device && (showSpinner || !(parseFloat(window.device.version) >= 7))) window.plugins.spinnerDialog.show();
 	
 	
 		var lastRoute = $route.current;
@@ -291,10 +291,10 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 			if (len>0) {
 				showSpinner = 1;
 				$('#preLoaderDiv').hide();
-				window.plugins.spinnerDialog.hide();
 				if (window.cordova) {
+					window.plugins.spinnerDialog.hide();
 			        navigator.splashscreen.hide();
-				}			
+				}
 			}
 		}
 		
