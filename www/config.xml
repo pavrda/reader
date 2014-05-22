@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "cz.inited.eyrie"
-        version   = "1.0.72">
+        version   = "1.0.73">
 
     <name>Eyrie</name>
 
@@ -49,6 +49,9 @@
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.file" />
     <gap:plugin name="org.apache.cordova.file-transfer" />
+
+
+<gap:plugin name="hu.dpal.phonegap.plugins.spinnerdialog" version="0.1.5" />
 
 
     <!-- Core plugins 

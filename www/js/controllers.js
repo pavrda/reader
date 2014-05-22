@@ -176,8 +176,10 @@ readerApp.controller('demoController', function($scope, $http, $q, $timeout) {
 readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService', '$q', '$timeout', '$rootScope', '$location', '$route', 
 	function($scope, $routeParams, dbService, $q, $timeout, $rootScope, $location, $route) {
 
-		$('#preLoaderDiv').show();
+//		$('#preLoaderDiv').show();
 //		navigator.notification.activityStart();
+	window.plugins.spinnerDialog.show();
+	
 	
 		var lastRoute = $route.current;
 		var notChangeUrl = false;
