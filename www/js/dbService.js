@@ -397,19 +397,10 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 	}
 	
 	db.init = function() {
-		window.localStorage.removeItem('eyrie-timestamp');
-//		window.localStorage.setItem('eyrie-timestamp', '2394924400');
+//		window.localStorage.removeItem('eyrie-timestamp');	// odkomentovat, kdyz chci pokazde zacinat od zacatku
 		initFs();
 	};
-	
-/*	
-	if (window.cordova) {
-		setTimeout(function() {
-	        navigator.splashscreen.hide();
-	    }, 2000);
-	}	
-*/
-	
+		
 	// spust to - zacni s inicializaci filesystemu
 	if (!window.cordova) {
 		db.init();
