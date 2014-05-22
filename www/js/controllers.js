@@ -178,7 +178,7 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 
 //		$('#preLoaderDiv').show();
 //		navigator.notification.activityStart();
-	window.plugins.spinnerDialog.show();
+		window.plugins.spinnerDialog.show();
 	
 	
 		var lastRoute = $route.current;
@@ -289,6 +289,7 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 //			alert('hotovo');
 			if (len>0) {
 				$('#preLoaderDiv').hide();
+				window.plugins.spinnerDialog.hide();
 				if (window.cordova) {
 			        navigator.splashscreen.hide();
 				}			
