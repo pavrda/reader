@@ -172,13 +172,14 @@ readerApp.controller('demoController', function($scope, $http, $q, $timeout) {
 
   });
 
+var showSpinner = 0;
 
 readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService', '$q', '$timeout', '$rootScope', '$location', '$route', 
 	function($scope, $routeParams, dbService, $q, $timeout, $rootScope, $location, $route) {
 
 //		$('#preLoaderDiv').show();
 //		navigator.notification.activityStart();
-		window.plugins.spinnerDialog.show();
+		if (showSpinner) window.plugins.spinnerDialog.show();
 	
 	
 		var lastRoute = $route.current;
@@ -288,6 +289,7 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 			$scope.$apply();
 //			alert('hotovo');
 			if (len>0) {
+				showSpinner = 1;
 				$('#preLoaderDiv').hide();
 				window.plugins.spinnerDialog.hide();
 				if (window.cordova) {
