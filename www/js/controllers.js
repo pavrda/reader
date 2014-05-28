@@ -179,7 +179,8 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 
 //		$('#preLoaderDiv').show();
 //		navigator.notification.activityStart();
-		if (window.device && (showSpinner || !(parseFloat(window.device.version) >= 7))) window.plugins.spinnerDialog.show();
+//		if (window.device && (showSpinner || !(parseFloat(window.device.version) >= 7))) window.plugins.spinnerDialog.show();
+		if (window.device && showSpinner) window.plugins.spinnerDialog.show();
 	
 	
 		var lastRoute = $route.current;

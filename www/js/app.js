@@ -58,6 +58,11 @@ readerApp.run(['$rootScope', 'dbService',
 	};
 	
     document.addEventListener('deviceready', function() {
+    	
+    	if (!(parseFloat(window.device.version) >= 7)) {
+    		window.plugins.spinnerDialog.show();
+    	}
+    	
         $rootScope.$apply(function() {
         	if (window.device && parseFloat(window.device.version) >= 7) {
         		$('body').addClass('ios');
