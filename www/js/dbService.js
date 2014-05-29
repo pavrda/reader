@@ -317,15 +317,25 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 
 	function prepareSync() {
 		lastSync = window.localStorage.getItem('eyrie-timestamp');
-		nowSync = Math.round(new Date().getTime()/1000);
+		if (lastSync == 1) {
+			nowSync = 2;
+		} else {
+			nowSync = Math.round(new Date().getTime()/1000);			
+		}
 
 //		$http({method: 'GET', url: 'http://vyvoj.bzcompany.cz/everesta/eyrie.cz/rss/json/?changed=' + lastSync}).
 		$http({method: 'GET', url: 'http://www.eyrie.cz/rss/json/grp1?changed=' + lastSync}).
 	    success(function(data, status, headers, config) {
 	    	loader = data;
 	    	if (loader.length) {
-	    		console.log('Pocet aktualizaci:' + loader.length);	    		
-	    		loaderCounter=0;
+	    		console.log('Pocet aktualizaci:' + loader.length);	    	
+    			loaderCounter=0;
+	    		if (lastSync == 1) {
+		    		console.log('Jsem prvni aktualizace, stahuji 10 poslednich clanku');	    	
+		    		loader = loader.splice(0,10);
+	    		} else {
+	    		}
+
 	    		stahni(syncedOK, runApp);
 	    	} else {
 	    		console.log('Nic k aktualizaci');
@@ -398,7 +408,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 	}
 	
 	db.init = function() {
-//		window.localStorage.removeItem('eyrie-timestamp');	// odkomentovat, kdyz chci pokazde zacinat od zacatku
+		window.localStorage.removeItem('eyrie-timestamp');	// odkomentovat, kdyz chci pokazde zacinat od zacatku
 		initFs();
 	};
 		

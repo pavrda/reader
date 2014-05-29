@@ -180,7 +180,7 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 //		$('#preLoaderDiv').show();
 //		navigator.notification.activityStart();
 //		if (window.device && (showSpinner || !(parseFloat(window.device.version) >= 7))) window.plugins.spinnerDialog.show();
-		if (window.device && showSpinner) window.plugins.spinnerDialog.show();
+		if (window.device && showSpinner) window.plugins.spinnerDialog.show("Eyrie", "Načítám ...");
 	
 	
 		var lastRoute = $route.current;
@@ -195,6 +195,8 @@ readerApp.controller('novinkyController', [ '$scope', '$routeParams', 'dbService
 	    
 	    $scope.$on('contentUpdated', function(event) {
 	    	if (!$routeParams.artId) {
+	    		location.hash = "#/" + $routeParams.catId + "?time=" + new Date().getTime();
+	    		return;
 		    	dbService.transaction(function (tx) {
 		    		tx.executeSql(
 							'SELECT id, txt, image, title, date_pub FROM article WHERE category_id=?',

@@ -60,7 +60,7 @@ readerApp.run(['$rootScope', 'dbService',
     document.addEventListener('deviceready', function() {
     	
     	if (!(parseFloat(window.device.version) >= 7)) {
-    		window.plugins.spinnerDialog.show();
+    		window.plugins.spinnerDialog.show("", "Načítám ...");
     	}
     	
         $rootScope.$apply(function() {
