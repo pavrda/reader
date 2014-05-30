@@ -2,67 +2,28 @@ var readerApp = angular.module('readerApp', [
   'ngRoute', 'ngSanitize', 'angular-carousel'
 ]);
 
-/*
-readerApp.config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider.
-      when('/:catId', {
-        templateUrl: 'tplCategories.html',
-        controller: 'CategoryCtrl'
-      }).
-      when('/:catId/:artId', {
-        templateUrl: 'tplArticle.html',
-        controller: 'ArticleCtrl'
-      }).
-      otherwise({
-        redirectTo: '/pro-inspiraci'
-      });
-  }]);
-*/
-
-readerApp.config(['$routeProvider',
-                  function($routeProvider) {
-                    $routeProvider.
-                      when('/', {
-                        templateUrl: 'tplNovinky.html',
-                        controller: 'novinkyController'
-                      }).
-                      when('/:catId', {
-                        templateUrl: 'tplNovinky.html',
-                        controller: 'novinkyController'
-                      }).
-                      when('/:catId/:artId', {
-                        templateUrl: 'tplNovinky.html',
-                        controller: 'novinkyController'
-                      }).
-                      otherwise({
-                        redirectTo: '/pro-inspiraci'
-                      });
-                  }]);
 
 readerApp.config( [
           '$compileProvider',
           function( $compileProvider )
           {   
-//              $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|filesystem:http):/);
               $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|cdvfile|filesystem:http):/);	//kvuli obrazkum z filesystemu
-              // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
           }
       ]);
 
+
 readerApp.run(['$rootScope', 'dbService', 
     function($rootScope, dbService) {
-	
-	$rootScope.ahoj = function() {
-		alert('ahoj');
-	};
-	
+		
     document.addEventListener('deviceready', function() {
+    	    	
+    	console.log("deviceready()");
     	
     	if (!(parseFloat(window.device.version) >= 7)) {
     		window.plugins.spinnerDialog.show("", "Načítám ...");
     	}
-    	
+
+    	dbService.init();
         $rootScope.$apply(function() {
         	if (window.device && parseFloat(window.device.version) >= 7) {
         		$('body').addClass('ios');
@@ -73,6 +34,7 @@ readerApp.run(['$rootScope', 'dbService',
         });
     });
 }]);
+
 
 readerApp.filter('datumPred', function() {
 	return function(input) {

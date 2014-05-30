@@ -10,7 +10,6 @@
     <script type="text/javascript" src="js/requestAnimationFrame.js"></script>
     <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="js/angular.js"></script>
-    <script type="text/javascript" src="js/angular-route.min.js"></script>
     <script type="text/javascript" src="js/angular-sanitize.js"></script>
     <script type="text/javascript" src="js/angular-touch.js"></script>
     <script type="text/javascript" src="js/angular-carousel.js"></script>
@@ -80,16 +79,67 @@ function showMenu(e) {
 	        		</div>
 	        	</div>
 	        	<div class="rubriky" id="navRubriky" >
-	       			<a href="#o-nas" data-catid="o-nas"><span>O Eyrie</span></a>
-	       			<a href="#poradenstvi-a-sluzby" data-catid="poradenstvi-a-sluzby" ><span>Naše služby</span></a>
-	       			<a href="#pro-inspiraci" data-catid="pro-inspiraci" ><span>Pro inspiraci</span></a>
-	       			<a href="#doporucujeme" data-catid="doporucujeme" ><span>Doporučujeme</span></a>
-	       			<a href="#osobnosti" data-catid="osobnosti" ><span>Osobnosti</span></a>
-	       			<a href="#kontakt" data-catid="kontakt" ><span>Kontakt</span></a>
+	       			<a href="#/o-nas" data-catid="o-nas"><span>O Eyrie</span></a>
+	       			<a href="#/poradenstvi-a-sluzby" data-catid="poradenstvi-a-sluzby" ><span>Naše služby</span></a>
+	       			<a href="#/pro-inspiraci" data-catid="pro-inspiraci" ><span>Pro inspiraci</span></a>
+	       			<a href="#/doporucujeme" data-catid="doporucujeme" ><span>Doporučujeme</span></a>
+	       			<a href="#/osobnosti" data-catid="osobnosti" ><span>Osobnosti</span></a>
+	       			<a href="#/kontakt" data-catid="kontakt" ><span>Kontakt</span></a>
 	        	</div>
 			</div>        	
         	<div class="contentContainer" id="divContent"></div>
-        	<div ng-view></div>
+<!--        	<div ng-view></div> -->
+        	
+        	<div ng-controller="novinkyController">
+        	
+<ul rn-carousel xrn-carousel-indicator rn-carousel-index="slideIndex" >
+	<li ng-repeat="article in items">
+		<div class="category" ng-if="article.isFirst">
+			<div class="articleItem" ng-repeat="category in categories" ng-class="{selArticle: category.id==catId}">
+				<div class="articleItemContainer" >
+					<a href="#{{category.id}}" class="bigCategory" >{{category.title}}</a>
+				</div>
+				<hr width="100%" />
+			</div>
+			<div class="copyright"><span>Created byl Gapanet solution s.r.o.</span>© 2014 Eyrie s.r.o.</div>
+		</div>
+
+		<div class="category" ng-if="article.isSecond">
+			<div class="ca">
+				<div class="articleItem articleItem2" ng-repeat="category in article.articles" data-id="{{category.id}}">
+					<a href="#/{{catId}}/{{category.id}}" ><img ng-src="{{category.icon}}" align="left" width="100" height="70" border="0"></a>
+					<div class="articleItemContainer" >
+						<a href="#/{{catId}}/{{category.id}}" >{{category.title}}</a>
+						<div class="artDate">Publikováno {{category.date_pub | datumPred}}</div>
+					</div>
+					<hr width="100%" />
+				</div>
+<!-- 				
+				<div>asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br /></div>
+				<div>asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br /></div>
+ -->				
+			<div class="copyright"><span>Created byl Gapanet solution s.r.o.</span>© 2014 Eyrie s.r.o.</div>
+				        	<br /><br /><br />&nbsp;
+				
+			</div>
+		</div>
+
+		<div class="clanek" ng-if="article.isArticle">
+			<div class="cl">
+				<div class="artImage">
+					<img ng-src="{{article.image}}" width="100%" class="artImg" ng-if="article.image"/>
+					<div class="artImageTitle" ng-if="article.date_show"><div>Publikováno {{article.date_pub | datumPred2}}</div></div>
+				</div>
+				<div ng-bind-html="article.txt2" class="divArticle text"></div>
+	        	<br /><br /><br />&nbsp;
+			</div>
+		</div>
+	</li>
+</ul>        	
+        	
+        	</div>
+        	
+        	
         </div>
     </body>
 </html>

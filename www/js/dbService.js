@@ -1,5 +1,5 @@
 
-readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', function($http, $route, $timeout, $rootScope) {
+readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', function($http, $location, $timeout, $rootScope) {
 
 	var fs = null;		// filesystem
 	var dir = null;		// dir
@@ -316,6 +316,7 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 	
 
 	function prepareSync() {
+		console.log('prepareSync()');
 		lastSync = window.localStorage.getItem('eyrie-timestamp');
 		if (lastSync == 1) {
 			nowSync = 2;
@@ -351,18 +352,24 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 	}
 	
 	function syncedOK() {
+		console.log('syncedOK()');
 		window.localStorage.setItem('eyrie-timestamp', nowSync);
 		runApp();
 	}
 	
 	function runApp() {
+		console.log('runApp()');
 		$timeout(prepareUpdate, 1 * 60 * 1000);	// prvni aktualizace po minut
-		$('#preLoaderDiv').hide();
-		if (location.hash == "#/") {
-			// na zacatku presmeruj na kategorii
-			location.hash = "#/pro-inspiraci?t=" + new Date().getTime();
+
+		$rootScope.$broadcast("runApp");
+		return;
+		
+		if ((location.hash == "#/") || (location.hash == "#") || (location.hash == "")) {
+			console.log('runApp, url:/pro-inspiraci');
+			$location.path("/pro-inspiraci");
 		} else {
-			$route.reload();					
+			console.log('runApp, reload');
+			$rootScope.$broadcast("runApp");
 		}
 	}
 	
@@ -416,6 +423,6 @@ readerApp.factory('dbService', ['$http', '$route', '$timeout', '$rootScope', fun
 	if (!window.cordova) {
 		db.init();
 	}
-
+	
 	return db;
 }]);
