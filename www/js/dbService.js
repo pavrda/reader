@@ -1,4 +1,6 @@
 
+var updatePrepared = 0;
+
 readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', function($http, $location, $timeout, $rootScope) {
 
 	var fs = null;		// filesystem
@@ -318,11 +320,14 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 	function prepareSync() {
 		console.log('prepareSync()');
 		lastSync = window.localStorage.getItem('eyrie-timestamp');
+		nowSync = Math.round(new Date().getTime()/1000);
+/* omezeni na nacteni prvnich 10		
 		if (lastSync == 1) {
 			nowSync = 2;
 		} else {
 			nowSync = Math.round(new Date().getTime()/1000);			
 		}
+*/
 
 //		$http({method: 'GET', url: 'http://vyvoj.bzcompany.cz/everesta/eyrie.cz/rss/json/?changed=' + lastSync}).
 		$http({method: 'GET', url: 'http://www.eyrie.cz/rss/json/grp1?changed=' + lastSync}).
@@ -331,12 +336,13 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 	    	if (loader.length) {
 	    		console.log('Pocet aktualizaci:' + loader.length);	    	
     			loaderCounter=0;
+/*    			
 	    		if (lastSync == 1) {
 		    		console.log('Jsem prvni aktualizace, stahuji 10 poslednich clanku');	    	
 		    		loader = loader.splice(0,10);
 	    		} else {
 	    		}
-
+*/
 	    		stahni(syncedOK, runApp);
 	    	} else {
 	    		console.log('Nic k aktualizaci');
@@ -359,18 +365,12 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 	
 	function runApp() {
 		console.log('runApp()');
-		$timeout(prepareUpdate, 1 * 60 * 1000);	// prvni aktualizace po minut
+		if (!updatePrepared) {
+			updatePrepared  = 1;
+			$timeout(prepareUpdate, 1 * 60 * 1000);	// prvni aktualizace po minut
+		}
 
 		$rootScope.$broadcast("runApp");
-		return;
-		
-		if ((location.hash == "#/") || (location.hash == "#") || (location.hash == "")) {
-			console.log('runApp, url:/pro-inspiraci');
-			$location.path("/pro-inspiraci");
-		} else {
-			console.log('runApp, reload');
-			$rootScope.$broadcast("runApp");
-		}
 	}
 	
 	function prepareUpdate() {

@@ -22,16 +22,11 @@ readerApp.run(['$rootScope', 'dbService',
     	if (!(parseFloat(window.device.version) >= 7)) {
     		window.plugins.spinnerDialog.show("", "Načítám ...");
     	}
-
+    	if (window.device && parseFloat(window.device.version) >= 7) {
+    		$('body').addClass('ios');
+    		$('#vrsek').addClass('ios');
+    	}
     	dbService.init();
-        $rootScope.$apply(function() {
-        	if (window.device && parseFloat(window.device.version) >= 7) {
-        		$('body').addClass('ios');
-        		$('#vrsek').addClass('ios');
-        	}
-
-        	dbService.init();
-        });
     });
 }]);
 
@@ -83,6 +78,12 @@ readerApp.directive('showMenu', function() {
         	event.stopPropagation();         	
             event.preventDefault();
         });
-    }
-})
+    };
+});
 
+readerApp.directive('dir1', function() {
+    return function(scope, element, attrs) {
+    	elem.append('<h1>Test 1</h1>');
+    	alert('ted');
+    };
+});

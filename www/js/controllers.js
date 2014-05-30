@@ -1,13 +1,6 @@
 
-
 var showSpinner = 0;
-
-readerApp.controller('novinkyController1', [ '$scope', '$routeParams', 'dbService', '$q', '$timeout', '$rootScope', '$location', '$route', 
-                                        	function($scope, $routeParams, dbService, $q, $timeout, $rootScope, $location, $route) {
-	console.log('controller()');
-}]);
-
-
+var appStarted = 0;
 
 readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeout', '$rootScope', '$location',
 	function($scope, dbService, $q, $timeout, $rootScope, $location) {
@@ -23,6 +16,8 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 	    $scope.$on('$locationChangeSuccess', function(event) {
 	    	
 	    	console.log('$locationChangeSuccess:' + location.hash );
+	    	if (!appStarted) return;
+	    	
 	    	if (notChangeUrl) {
 	    		console.log('notChangeUrl');
 	    		notChangeUrl=false;	    		
@@ -70,6 +65,11 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 	    
 	    $rootScope.$on('runApp', function(event) {
 	    	console.log('controller::runApp():' + location.hash );
+	    	if (appStarted) {
+	    		console.log('runApp: already started');
+	    		return;
+	    	}
+	    	appStarted = 1;	    	
 	    	if (!location.hash) {
 	    		console.log('runApp: change url to /pro-inspiraci');
 		    	$location.path("/pro-inspiraci").replace();
@@ -83,18 +83,7 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 	    	if (!$scope.artId) {
 	    		loadPage();
 	    	}
-/*	    	
-	    	return;
-	    		location.hash = "#/" + $scope.catId + "?time=" + new Date().getTime();
-	    		return;
-		    	dbService.transaction(function (tx) {
-		    		tx.executeSql(
-							'SELECT id, txt, image, title, date_pub, icon FROM article WHERE category_id=?',
-							[ $scope.catId ], querySuccess2,
-							dbService.errorDB);
-		    	}, dbService.errorDB);
-	    	}
-*/	    	
+    	
 	    });
 	    
 	    
@@ -157,7 +146,7 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 			}
 			ta[1].articles = tb;
 			$scope.items = ta;
-			$scope.$apply();
+//			$scope.$apply();
 					
 			if (idx>=0) {
 				$scope.slideIndex = 2;
@@ -165,12 +154,21 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 				$scope.slideIndex = 1;	
 			}
 			
-			$scope.$apply();
+//			$scope.$$postDigest(function() {});
+			
+//			$scope.$apply();
 			if (len>0) {
 				showSpinner = 1;
 				if (window.cordova) {
-					window.plugins.spinnerDialog.hide();
-			        navigator.splashscreen.hide();
+					$timeout(function () {
+						console.log("================== 1212312 =========");
+						$('#navRubriky').hide();
+						$timeout(function () {
+							window.plugins.spinnerDialog.hide();
+					        navigator.splashscreen.hide();						
+						}, 1000);
+					},100);
+					console.log("===================================== HIDE ============================================");
 				}
 			}
 		}
