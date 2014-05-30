@@ -1,5 +1,5 @@
 var readerApp = angular.module('readerApp', [
-  'ngRoute', 'ngSanitize', 'angular-carousel'
+  'ngSanitize', 'angular-carousel'
 ]);
 
 
