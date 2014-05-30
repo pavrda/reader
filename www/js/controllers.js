@@ -55,9 +55,10 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 	    		console.log('controller::select article 1');
 				tx.executeSql('SELECT id,title FROM category', [], querySuccess1, dbService.errorDB);
 	    		tx.executeSql(
-						'SELECT id, txt, image, title, date_pub, icon FROM article WHERE category_id=? ORDER BY date_pub DESC',
+						'SELECT id, txt, image, title, date_pub, icon, visited FROM article WHERE category_id=? ORDER BY date_pub DESC',
 						[ $scope.catId ], querySuccess2,
 						dbService.errorDB);
+	    		tx.executeSql('UPDATE article SET visited=1 WHERE id=?', [$scope.artId]);
 	    	}, dbService.errorDB);	    		    	
 	    }
 	    
@@ -160,6 +161,7 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 			if (len>0) {
 				showSpinner = 1;
 				if (window.cordova) {
+					// nasledujici je tu kvuli starsim Androidum, ktere nedokoncuji nacitani
 					$timeout(function () {
 						console.log("================== 1212312 =========");
 						$('#navRubriky').hide();
@@ -179,6 +181,11 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 			if (newValue>1) {
 				if (location.hash != "#/" + $scope.catId + "/" + $scope.items[newValue].id) {
 					notChangeUrl=true;
+					var clanek = $scope.items[newValue].id;
+					dbService.transaction(function (tx) {
+						console.log('UPDATE set visited id=' + clanek);
+			    		tx.executeSql('UPDATE article SET visited=1 WHERE id=?', [clanek]);
+			    	}, dbService.errorDB);	
 					$location.path("/" + $scope.catId + "/" + $scope.items[newValue].id).replace();
 				}
 				$("div.articleItem2").removeClass('selArticle');

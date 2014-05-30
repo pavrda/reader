@@ -85,7 +85,7 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (6, 'kontakt', 'Kontakt')");
 	    
 	    tx.executeSql('DROP TABLE IF EXISTS article');
-	    tx.executeSql('CREATE TABLE IF NOT EXISTS article (id unique, poradi unique, category_id, title, txt, image, date_pub, icon)');
+	    tx.executeSql('CREATE TABLE IF NOT EXISTS article (id unique, poradi unique, category_id, title, txt, image, date_pub, icon, visited)');
 	
 	}
 	
@@ -155,7 +155,7 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 	    	}
 
 		    db.transaction(function (tx) {
-		    	tx.executeSql('INSERT OR REPLACE INTO article (poradi, category_id, id, title, txt, image, date_pub, icon) VALUES (?,?,?,?,?,?,?,?)', [sid, category, sid, title, txt, image, date_pub, icon]);
+		    	tx.executeSql('INSERT OR REPLACE INTO article (poradi, category_id, id, title, txt, image, date_pub, icon, visited) VALUES (?,?,?,?,?,?,?,?,0)', [sid, category, sid, title, txt, image, date_pub, icon]);
 		    	console.log("Stazeno ok:" + sURL);
 		    	loaderCounter ++;
 		    	stahni(stazenoOk, stazenoErr);
