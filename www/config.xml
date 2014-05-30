@@ -44,6 +44,7 @@
 	<preference name="DisallowOverscroll" value="true" />
 
     <!-- Plugins  -->
+    <gap:plugin name="org.apache.cordova.console" />
     <gap:plugin name="org.apache.cordova.device" />
     <gap:plugin name="org.apache.cordova.dialogs" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
