@@ -103,14 +103,14 @@ function showMenu(e) {
 
 		<div class="category" ng-if="article.isSecond">
 			<div class="ca">
-				<div class="articleItem articleItem2" ng-repeat="category in article.articles" data-id="{{category.id}}">
-					<a href="#/{{catId}}/{{category.id}}" ><img ng-src="{{category.icon}}" align="left" width="100" height="70" border="0"></a>
+				<a href="#/{{catId}}/{{category.id}}" class="articleItem articleItem2" ng-repeat="category in article.articles" data-id="{{category.id}}" ng-class="{'visited':category.visited}" >
+					<img ng-src="{{category.icon}}" align="left" width="100" height="70" border="0">
 					<div class="articleItemContainer" >
-						<a href="#/{{catId}}/{{category.id}}" ng-class="{'visited':category.visited}">{{category.title}}</a>
+						{{category.title}}
 						<div class="artDate">Publikováno {{category.date_pub | datumPred}}</div>
 					</div>
 					<hr width="100%" />
-				</div>
+				</a>
 <!-- 				
 				<div>asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br /></div>
 				<div>asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br /></div>

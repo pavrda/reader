@@ -365,6 +365,7 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 	
 	function runApp() {
 		console.log('runApp()');
+    	document.removeEventListener("backbutton", backButtonHandler, false);
 		if (!updatePrepared) {
 			updatePrepared  = 1;
 			$timeout(prepareUpdate, 1 * 60 * 1000);	// prvni aktualizace po minut

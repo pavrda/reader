@@ -11,6 +11,9 @@ readerApp.config( [
           }
       ]);
 
+function backButtonHandler(e) {
+	e.preventDefault();
+}
 
 readerApp.run(['$rootScope', 'dbService', 
     function($rootScope, dbService) {
@@ -18,6 +21,9 @@ readerApp.run(['$rootScope', 'dbService',
     document.addEventListener('deviceready', function() {
     	    	
     	console.log("deviceready()");
+
+    	document.addEventListener("backbutton", backButtonHandler, false);
+    	
     	
     	if (!(parseFloat(window.device.version) >= 7)) {
     		window.plugins.spinnerDialog.show("", "Načítám ...");

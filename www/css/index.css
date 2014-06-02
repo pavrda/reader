@@ -259,6 +259,27 @@ div.articleItemContainer {
 	margin-left: 120px;
 	margin-right: 1ex;
 }
+a.articleItem2 {
+	text-decoration: none;
+	xfont-weight: bold;
+	font-size: 11pt;
+	font-family: "Georgia";
+	display: block;
+}
+
+a.articleItem2:link {
+	color:#004167;
+	}
+	
+a.articleItem2:visited {
+	color:#808080;
+	}
+
+a.articleItem2.visited {
+	color:#808080;
+	}
+
+
 div.articleItem a {
 	text-decoration: none;
 	xfont-weight: bold;
@@ -279,6 +300,8 @@ div.articleItem a.visited {
 	}
 
 
+
+
 xxxdiv.articleItem xxxhr {
     xheight: 0.5px;
     background: #c0c0c0;
@@ -292,11 +315,11 @@ xxxdiv.articleItem xxxhr {
 */
 */
 }
-div.articleItem {
+a.articleItem {
 	padding-top: 0.5em;
 }
 
-div.articleItem hr {
+a.articleItem hr, div.articleItem hr {
 	color: #c0c0c0;
 	background-color: #c0c0c0;
 	height: 1px;
