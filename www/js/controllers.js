@@ -188,8 +188,8 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 			    	}, dbService.errorDB);	
 					$location.path("/" + $scope.catId + "/" + $scope.items[newValue].id).replace();
 				}
-				$("div.articleItem2").removeClass('selArticle');
-				var ai = $("div.articleItem[data-id='" + $scope.items[newValue].id + "']");
+				$("a.articleItem2").removeClass('selArticle');
+				var ai = $("a.articleItem[data-id='" + $scope.items[newValue].id + "']");
 				var pi = ai.parent();
 				ai.addClass('selArticle');
 				var sy = ai.offset().top + pi.scrollTop() - pi.height()/2; // - 50;
