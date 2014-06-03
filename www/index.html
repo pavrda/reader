@@ -111,10 +111,6 @@ function showMenu(e) {
 					</div>
 					<hr width="100%" />
 				</a>
-<!-- 				
-				<div>asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br /></div>
-				<div>asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br />asdfasdfa<br /></div>
- -->				
 			<div class="copyright"><span>Created byl Gapanet solution s.r.o.</span>© 2014 Eyrie s.r.o.</div>
 				        	<br /><br /><br />&nbsp;
 				
@@ -124,9 +120,7 @@ function showMenu(e) {
 		<div class="clanek" ng-if="article.isArticle">
 			<div class="cl">
 				<div class="artImage">
-<!-- 				
-					<ximg ng-src="{{article.image}}" width="100%" class="artImg" ng-if="article.mimage"/>
- -->					
+					<img ng-src="{{article.image}}" width="100%" class="artImg" ng-if="article.image"/>
 					<div class="artImageTitle" ng-if="article.date_show"><div>Publikováno {{article.date_pub | datumPred2}}</div></div>
 				</div>
 				<div ng-bind-html="article.txt2" class="divArticle text"></div>

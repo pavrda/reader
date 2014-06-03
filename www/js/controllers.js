@@ -8,6 +8,7 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 		console.log('controller() url:' + location.href);
 
 		var notChangeUrl = false;
+		var ha = [];
 		$scope.slideIndex=1;
 		$scope.items = [{txt:'asdasd'}];
 		$scope.articleIndex = 0;
@@ -124,6 +125,7 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 				
 			}
 			var tb = [];
+			ha = []; // skryte clanky, ktere postupne pridavam
 			var artId = $scope.artId;
 			var idx = -1;
 //			alert(len);
@@ -136,20 +138,24 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 				}
 				if (!artId) {
 					// pokud v textu neni titulek, pridej ho tam
-					ta[j] = tb[i];
-					var t = ta[j].txt;
-					if (t.indexOf("<h1") < 0) t = "<h1>" + ta[j].title + "</h1>" + t;
-					ta[j].txt2 = t;
-					ta[j].isArticle=true;
-					ta[j].image=false;
-					ta[j].date_show=((new Date(ta[j].date_pub).getTime()) >  showDateLimit);
+					var tt = tb[i];
+//					ta[j] = tb[i];
+					var t = tt.txt;
+					if (t.indexOf("<h1") < 0) t = "<h1>" + tt.title + "</h1>" + t;
+					tt.txt2 = t;
+					tt.isArticle=true;
+					tt.date_show=((new Date(tt.date_pub).getTime()) >  showDateLimit);
+					if (j<4) {
+						ta[j] = tt;		//zobrazim hned
+					} else {
+						ha[j-4] = tt;	//zobrazim potom - setrim velikost DOM a iPad pada
+					}
 					j++;
 				}
 			}
 			ta[1].articles = tb;
 			
 			$scope.items = ta;
-//			$scope.$apply();
 					
 			if (idx>=0) {
 				$scope.slideIndex = 2;
@@ -157,9 +163,11 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 				$scope.slideIndex = 1;	
 			}
 			
-//			$scope.$$postDigest(function() {});
-			
 			$scope.$apply();
+			if (idx>=0) {
+				selectAndScroll($scope.artId);
+			}
+			
 			if (len>0) {
 				showSpinner = 1;
 				if (window.cordova) {
@@ -190,7 +198,8 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 			    	}, dbService.errorDB);	
 					$location.path("/" + $scope.catId + "/" + $scope.items[newValue].id).replace();
 				}
-				
+				selectAndScroll($scope.items[newValue].id);
+/*				
 				$("a.articleItem2").removeClass('selArticle');
 				var ai = $("a.articleItem[data-id='" + $scope.items[newValue].id + "']");
 				var pi = ai.parent();
@@ -200,6 +209,7 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 				console.log("offset:" + ai.offset().top);
 				console.log("scrollto:" + sy );
 				pi.scrollTop(sy);
+*/				
 			}
 			
 			if ((newValue==1) && $scope.catId) {
@@ -222,10 +232,26 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 			if (newValue>2) {
 				$scope.items.splice(2,1);
 				$scope.$apply();
-				$scope.slideIndex=2;				
+				$scope.slideIndex=2;
+				console.log("ha.length=" + ha.length);
+				if (ha.length) {
+					$scope.items.push(ha.shift());
+				}
 			}
 	      });
 
+		function selectAndScroll(lid) {
+			$("a.articleItem2").removeClass('selArticle');
+			var ai = $("a.articleItem[data-id='" + lid + "']");
+			var pi = ai.parent();
+			ai.addClass('selArticle');
+			var sy = ai.offset().top + pi.scrollTop() - pi.height()/2; // - 50;
+			console.log("parent:" + pi.scrollTop());
+			console.log("offset:" + ai.offset().top);
+			console.log("scrollto:" + sy );
+			pi.scrollTop(sy);			
+		}
+		
 }]);
 
 
