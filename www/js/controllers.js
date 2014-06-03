@@ -128,7 +128,6 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 			var idx = -1;
 //			alert(len);
 			var showDateLimit = new Date().getTime() - 1000*60*60*24;
-			var ij = 0;
 			for (var i = 0; i < len; i++) {
 				tb[i] = results.rows.item(i);
 				if (tb[i].id == artId) {
@@ -142,15 +141,13 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 					if (t.indexOf("<h1") < 0) t = "<h1>" + ta[j].title + "</h1>" + t;
 					ta[j].txt2 = t;
 					ta[j].isArticle=true;
+					ta[j].image=false;
 					ta[j].date_show=((new Date(ta[j].date_pub).getTime()) >  showDateLimit);
-					ta[j].display = (ij<3);
 					j++;
-					ij++;
 				}
 			}
 			ta[1].articles = tb;
 			
-//105			ta = ta.splice(0,4);
 			$scope.items = ta;
 //			$scope.$apply();
 					
@@ -203,10 +200,6 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 				console.log("offset:" + ai.offset().top);
 				console.log("scrollto:" + sy );
 				pi.scrollTop(sy);
-				
-				if ($("div.cl").length > 1) {
-					$("div.cl").eq(1).removeClass("hidden");
-				}
 			}
 			
 			if ((newValue==1) && $scope.catId) {

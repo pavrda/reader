@@ -122,9 +122,9 @@ function showMenu(e) {
 		</div>
 
 		<div class="clanek" ng-if="article.isArticle">
-			<div class="cl" ng-class="{hidden: article.display==false}" data-id="{{article.id}}">
+			<div class="cl">
 				<div class="artImage">
-					<img ng-src="{{article.image}}" width="100%" class="artImg" ng-if="article.image"/>
+					<img ng-src="{{article.image}}" width="100%" class="artImg" ng-if="article.mimage"/>
 					<div class="artImageTitle" ng-if="article.date_show"><div>Publikováno {{article.date_pub | datumPred2}}</div></div>
 				</div>
 				<div ng-bind-html="article.txt2" class="divArticle text"></div>
