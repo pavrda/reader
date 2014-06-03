@@ -146,6 +146,8 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 				}
 			}
 			ta[1].articles = tb;
+			
+			ta = ta.splice(0,4);
 			$scope.items = ta;
 //			$scope.$apply();
 					
