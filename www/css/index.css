@@ -517,3 +517,7 @@ body.ios {
 #vrsek.ios {
 	top: 20px;
 }
+
+.hidden {
+	display: none;
+}
