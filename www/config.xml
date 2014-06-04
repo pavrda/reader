@@ -83,8 +83,8 @@
         <gap:plugin name="com.phonegap.plugins.barcodescanner" />
     -->
 
-    <!-- Define app icon for each platform. -->
-    <icon src="icon/icon128x128.png" />
+    <!-- Define app icon for each platform. 
+    <icon src="icon/icon128x128.png" />-->
     <icon src="icon/icon36x36.png"   gap:platform="android"    gap:density="ldpi" />
     <icon src="icon/icon48x48.png"   gap:platform="android"    gap:density="mdpi" />
     <icon src="icon/icon72x72.png"   gap:platform="android"    gap:density="hdpi" />
