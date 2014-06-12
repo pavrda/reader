@@ -136,7 +136,9 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 		    	if (j>0) title = title.substring(0,j);
 	    	}
 	    	
-	    	txt=txt.replace(/href=/g, "fref="); //zakazat odkazy v textech
+	    	if (title != "Kontakt") {
+	    		txt=txt.replace(/href=/g, "fref="); //zakazat odkazy v textech
+	    	}
 	    	
 	    	console.log("title:" + title);
 	    	i=0;
@@ -416,7 +418,7 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 	}
 	
 	db.init = function() {
-//		window.localStorage.removeItem('eyrie-timestamp');	// odkomentovat, kdyz chci pokazde zacinat od zacatku
+		window.localStorage.removeItem('eyrie-timestamp');	// odkomentovat, kdyz chci pokazde zacinat od zacatku
 		initFs();
 	};
 		

@@ -118,7 +118,7 @@ h1 {
 
 .headerBlock {
 	display: inline-block;
-	padding: 7px 2em 0px 0.5em;
+	padding: 7px 1em 0px 0.5em;
 	xmin-height: 3ex;
 	min-height: 36px;
 	min-width: 3ex;
@@ -176,6 +176,8 @@ div#preLoaderDiv
 	z-index: 100;
 }
 
+
+/*
 #divActualCategory:after {
 	content: "";
 	border-left: 10px solid transparent;
@@ -185,6 +187,8 @@ div#preLoaderDiv
 	top: 17px;
 	right: 1ex;
 }
+*/
+
 
 
 
