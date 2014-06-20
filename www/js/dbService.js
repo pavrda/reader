@@ -22,7 +22,8 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 		console.log("appBaseURL:" + appBaseURL);
 		
 		if (is_cordova()) {
-			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFileSystem, onError);
+//			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFileSystem, onError);
+			window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, gotFileSystem, onError);
 		} else {
 			window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
 			window.requestFileSystem(window.webkitStorageInfo.TEMPORARY, 5*1024*1024, gotFileSystem, onError);
