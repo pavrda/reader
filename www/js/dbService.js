@@ -12,24 +12,39 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 	var nowSync = 0;
 	var appBaseURL = "";
 	
-    db = window.openDatabase("Eyrie", "1.0", "Eyrie", 20*1000*1000);
+	var showStatus = 0;
+	var lastStatus = 0;
 	
+	try {
+		db = window.openDatabase("Eyrie", "1.0", "Eyrie", 20*1000*1000);
+	} catch (e) {
+		onFSError();
+	}
+		
 	function initFs() {		
 		var s = location.origin + location.pathname;
 		var pi = s.lastIndexOf("/");
 		s = s.substring(0,pi);
 		appBaseURL = s.substring(0, pi + 1);
 		console.log("appBaseURL:" + appBaseURL);
-		
-		if (is_cordova()) {
-//			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFileSystem, onError);
-			window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, gotFileSystem, onError);
-		} else {
-			window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
-			window.requestFileSystem(window.webkitStorageInfo.TEMPORARY, 5*1024*1024, gotFileSystem, onError);
+		try {
+			if (is_cordova()) {
+	//			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFileSystem, onError);
+				window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, gotFileSystem, onFSError);
+			} else {
+				window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
+				window.requestFileSystem(window.webkitStorageInfo.TEMPORARY, 5*1024*1024, gotFileSystem, onFSError);
+			}
+		} catch (e) {
+			onFSError();
 		}
 	};
 
+	function onFSError() {
+		navigator.splashscreen.hide();
+		alert("Telefon nedovoluje uložení dat, aplikace nemůže fungovat");
+	}
+	
 	function gotFileSystem(lfs) {
 		fs = lfs;
 		fs.root.getDirectory('eyrie', {create: true, exclusive: false}, gotDirectory, onError);
@@ -42,6 +57,7 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 		
 	
 	function initDb(){
+		showStatus = 1;
 		var tstamp = window.localStorage.getItem('eyrie-timestamp');
 		if (!tstamp) {
 			console.log('first run - create db structure');
@@ -92,6 +108,13 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 	
 	function stahni(stazenoOk, stazenoErr) {
 		if (loaderCounter >= loader.length) return stazenoOk();
+		if (showStatus) {
+			if (lastStatus < new Date().getTime() - 1000 ) {
+				window.plugins.spinnerDialog.show("", "Načítám (" + loaderCounter + "/" + loader.length + ") ...");
+				lastStatus = new Date().getTime();
+			}
+		}
+		
 		var sURL = loader[loaderCounter].url;
 		var category = convertCategory(loader[loaderCounter].category);
 		var sid = loader[loaderCounter].id;
@@ -362,6 +385,7 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 	
 	function syncedOK() {
 		console.log('syncedOK()');
+		showStatus = 0;
 		window.localStorage.setItem('eyrie-timestamp', nowSync);
 		runApp();
 	}
