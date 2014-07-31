@@ -56,9 +56,12 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 	    		console.log('controller::select article 1');
 				tx.executeSql('SELECT id,title FROM category', [], querySuccess1, dbService.errorDB);
 	    		tx.executeSql(
-						'SELECT id, txt, image, title, date_pub, icon, visited FROM article WHERE category_id=? ORDER BY date_pub DESC',
-						[ $scope.catId ], querySuccess2,
-						dbService.errorDB);
+					'SELECT id, txt, image, title, date_pub, icon, visited FROM article WHERE category_id=? ORDER BY date_pub' + 
+						(($scope.catId == "aktualne")?"":" DESC"),
+					[ $scope.catId ],
+					querySuccess2,
+					dbService.errorDB
+				);
 	    		tx.executeSql('UPDATE article SET visited=1 WHERE id=?', [$scope.artId]);
 	    	}, dbService.errorDB);	    		    	
 	    }
@@ -145,6 +148,11 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 					tt.txt2 = t;
 					tt.isArticle=true;
 					tt.date_show=((new Date(tt.date_pub).getTime()) >  showDateLimit);
+					if ($scope.catId == "aktualne") {
+						tt.date_show=false;
+						tt.date_show2=true;
+					}
+					
 					if (j<4) {
 						ta[j] = tt;		//zobrazim hned
 					} else {
@@ -252,15 +260,29 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 			pi.scrollTop(sy);			
 		}
 		
+		// vola se, kdyz se smaze cache a musim nahravat obrazky znovu
+		$scope.missingImg = function(e) {
+			var el = e.currentTarget;
+			if (el.eyrietag) return; // abych se neopakoval
+			el.eyrietag = 1;
+			var imgsrc = el.src;
+			console.log("Missing img:" + imgsrc);
+//			imgsrc = "filesystem:http://localhost/temporary/eyrie/13f4f5a4889cfc5f131b6d1ec26123f27dbd534e.jpg";
+			dbService.transaction(function (tx) {
+				tx.executeSql('SELECT imgSrc, pageUrl FROM cache WHERE localurl=?', [imgsrc], function (tx, results) {
+					var imgSrc = results.rows.item(0).imgSrc;
+					var pageUrl = results.rows.item(0).pageUrl;
+					dbService.saveImg(imgSrc, pageUrl, function () {
+						console.log("obnoveno");
+						el.src = imgsrc + "?" + new Date().getTime();
+					});
+				});
+			});
+		};
+		
+		
 }]);
 
 
-readerApp.filter('datum', function() {
-  return function(input) {
-    input = input || '';
-    var out = "";
-    out = "před " + input;
-    return out;
-  };
-});
+
 

@@ -29,19 +29,23 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 		console.log("appBaseURL:" + appBaseURL);
 		try {
 			if (is_cordova()) {
-	//			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFileSystem, onError);
+//				window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFileSystem, onError);
 				window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, gotFileSystem, onFSError);
 			} else {
 				window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
 				window.requestFileSystem(window.webkitStorageInfo.TEMPORARY, 5*1024*1024, gotFileSystem, onFSError);
 			}
 		} catch (e) {
+			console.log("Chyba pri otevirani uloziste:" + e);
 			onFSError();
 		}
 	};
 
-	function onFSError() {
-		navigator.splashscreen.hide();
+	function onFSError(q) {
+		try {
+			navigator.splashscreen.hide();
+		} catch (e)  {};
+		console.log("Chyba pri otevirani uloziste:" + q);
 		alert("Telefon nedovoluje uložení dat, aplikace nemůže fungovat");
 	}
 	
@@ -95,22 +99,25 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 //		$('#preLoaderDiv').show();
 
 	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (1, 'o-nas', 'O Eyrie')");
-	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (2, 'poradenstvi-a-sluzby', 'Naše služby')");
-	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (3, 'pro-inspiraci', 'Pro inspiraci')");
-	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (4, 'doporucujeme', 'Doporučujeme')");
-	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (5, 'osobnosti', 'Osobnosti')");
-	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (6, 'kontakt', 'Kontakt')");
+	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (2, 'aktualne', 'Aktuální nabídka')");
+	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (3, 'poradenstvi-a-sluzby', 'Naše služby')");
+	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (4, 'pro-inspiraci', 'Pro inspiraci')");
+	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (5, 'doporucujeme', 'Doporučujeme')");
+	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (6, 'osobnosti', 'Osobnosti')");
+	    tx.executeSql("INSERT INTO category (poradi, id, title) VALUES (7, 'kontakt', 'Kontakt')");
 	    
 	    tx.executeSql('DROP TABLE IF EXISTS article');
 	    tx.executeSql('CREATE TABLE IF NOT EXISTS article (id unique, poradi unique, category_id, title, txt, image, date_pub, icon, visited)');
 	
+	    tx.executeSql('DROP TABLE IF EXISTS cache');
+	    tx.executeSql('CREATE TABLE cache (localurl unique, imgSrc, pageUrl)');
 	}
 	
 	function stahni(stazenoOk, stazenoErr) {
 		if (loaderCounter >= loader.length) return stazenoOk();
 		if (showStatus) {
 			if (lastStatus < new Date().getTime() - 1000 ) {
-				window.plugins.spinnerDialog.show("", "Načítám (" + loaderCounter + "/" + loader.length + ") ...");
+//0731				window.plugins.spinnerDialog.show("", "Načítám (" + loaderCounter + "/" + loader.length + ") ...");
 				lastStatus = new Date().getTime();
 			}
 		}
@@ -254,7 +261,7 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 		if (s == "Příběhy firem") return "pro-inspiraci";
 		if (s == "K přečtení") return "pro-inspiraci";
 		
-		if (s == "Aktuální nabídka") return "osobnosti";
+		if (s == "Aktuální nabídka") return "aktualne";
 		if (s == "Osobnosti v Eyrie") return "osobnosti";
 
 		if (s == "Workshopy a semináře") return "poradenstvi-a-sluzby";
@@ -267,7 +274,7 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 	
 
 	
-	function saveImg(imgSrc, pageUrl) {
+	function saveImg(imgSrc, pageUrl, onSave) {
 		var fname;
 		if (!imgSrc) return "";
 		
@@ -301,6 +308,7 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 			    function(entry) {
 //			    	alert('stazeno:' + fname);
 			        console.log("download complete: " + entry.fullPath);
+			        if (onSave) onSave();
 			    },
 			    function(error) {
 //			    	alert('error:' + error.code);
@@ -312,6 +320,9 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 			    {
 			    }
 			);
+		    db.transaction(function (tx) {
+		    	tx.executeSql('INSERT OR REPLACE INTO cache VALUES (?,?,?)', [resUrl, imgSrc, pageUrl]);
+		    });
 			return resUrl;
 		}
 		
@@ -326,6 +337,7 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 						writer.onerror = error_callback;
 						writer.onwriteend = function() {
 							console.log("Ulozeno:" + fname);
+					        if (onSave) onSave();
 							};
 						writer.write(xhr.response, error_callback);
 
@@ -339,6 +351,9 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 			console.log("nelze nacist obrazek 2:" + fname);
 		};
 		xhr.send();
+	    db.transaction(function (tx) {
+	    	tx.executeSql('INSERT OR REPLACE INTO cache VALUES (?,?)', [resUrl, fname]);
+	    });
 		return resUrl;
 	};
 	
@@ -441,6 +456,8 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 	function updatedError() {
 		console.log("update error");
 	}
+	
+	db.saveImg = saveImg;
 	
 	db.init = function() {
 //		window.localStorage.removeItem('eyrie-timestamp');	// odkomentovat, kdyz chci pokazde zacinat od zacatku

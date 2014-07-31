@@ -66,6 +66,11 @@ function showMenu(e) {
 	e.stopPropagation(); 
 }
 
+function missingImgText(e) {
+	console.log(e.target);
+	angular.element("#divController").scope().missingImg(e);
+}
+
 </script>
         <div class="main">
 			<div id="vrsek">
@@ -77,6 +82,7 @@ function showMenu(e) {
 	        	</div>
 	        	<div class="rubriky" id="navRubriky" >
 	       			<a href="#/o-nas" data-catid="o-nas"><span>O Eyrie</span></a>
+	       			<a href="#/aktualne" data-catid="o-nas"><span>Aktuální nabídka</span></a>
 	       			<a href="#/poradenstvi-a-sluzby" data-catid="poradenstvi-a-sluzby" ><span>Naše služby</span></a>
 	       			<a href="#/pro-inspiraci" data-catid="pro-inspiraci" ><span>Pro inspiraci</span></a>
 	       			<a href="#/doporucujeme" data-catid="doporucujeme" ><span>Doporučujeme</span></a>
@@ -87,7 +93,7 @@ function showMenu(e) {
         	<div class="contentContainer" id="divContent"></div>
 <!--        	<div ng-view></div> -->
         	
-        	<div ng-controller="novinkyController">
+        	<div ng-controller="novinkyController" id="divController">
         	
 <ul rn-carousel xrn-carousel-indicator rn-carousel-index="slideIndex" >
 	<li ng-repeat="article in items">
@@ -98,20 +104,21 @@ function showMenu(e) {
 				</div>
 				<hr width="100%" />
 			</div>
-			<div class="copyright"><span>Created byl Gapanet solution s.r.o.</span>© 2014 Eyrie s.r.o.</div>
+			<div class="copyright"><span>Created by Gapanet solution s.r.o.</span>© 2014 Eyrie s.r.o.</div>
 		</div>
 
 		<div class="category" ng-if="article.isSecond">
 			<div class="ca">
 				<a href="#/{{catId}}/{{category.id}}" class="articleItem articleItem2" ng-repeat="category in article.articles" data-id="{{category.id}}" ng-class="{'visited':category.visited}" >
-					<img ng-src="{{category.icon}}" align="left" width="100" height="70" border="0">
+					<img ng-src="{{category.icon}}" align="left" width="100" height="70" border="0" ng-error="missingImg($event)" />
 					<div class="articleItemContainer" >
 						{{category.title}}
-						<div class="artDate">Publikováno {{category.date_pub | datumPred}}</div>
+						<div class="artDate" ng-if="catId!='aktualne'">Publikováno {{category.date_pub | datumPred}}</div>
+						<div class="artDate" ng-if="catId=='aktualne'">Termín: {{category.date_pub | datumTermin}}</div>
 					</div>
 					<hr width="100%" />
 				</a>
-			<div class="copyright"><span>Created byl Gapanet solution s.r.o.</span>© 2014 Eyrie s.r.o.</div>
+			<div class="copyright"><span>Created by Gapanet solution s.r.o.</span>© 2014 Eyrie s.r.o.</div>
 				        	<br /><br /><br />&nbsp;
 				
 			</div>
@@ -120,8 +127,9 @@ function showMenu(e) {
 		<div class="clanek" ng-if="article.isArticle">
 			<div class="cl">
 				<div class="artImage">
-					<img ng-src="{{article.image}}" width="100%" class="artImg" ng-if="article.image"/>
+					<img ng-src="{{article.image}}" width="100%" class="artImg" ng-if="article.image" ng-error="missingImg($event)" />
 					<div class="artImageTitle" ng-if="article.date_show"><div>Publikováno {{article.date_pub | datumPred2}}</div></div>
+					<div class="artImageTitle" ng-if="article.date_show2"><div>Termín: {{article.date_pub | datumTermin}}</div></div>
 				</div>
 				<div ng-bind-html="article.txt2" class="divArticle text"></div>
 	        	<br /><br /><br />&nbsp;

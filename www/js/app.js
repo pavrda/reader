@@ -72,7 +72,28 @@ readerApp.filter('datumPred2', function() {
 	};
 });
 
+readerApp.filter('datumTermin', function() {
+	return function(input) {
+		if (!input) return "";
+		try {
+			var dd = eval(input.substr(8,2));
+			var mm = eval(input.substr(5,2));
+			var yyyy = input.substr(0,4);
+			return dd + "." + mm + "." + yyyy;
+		} catch (e) {
+			return "";
+		}
+	};
+});
 
+readerApp.filter('datum', function() {
+	return function(input) {
+		input = input || '';
+	    var out = "";
+	    out = "před " + input;
+	    return out;
+	};
+});
 
 readerApp.directive('showMenu', function() {
     return function(scope, element, attrs) {
@@ -93,3 +114,21 @@ readerApp.directive('dir1', function() {
     	alert('ted');
     };
 });
+
+// ng-error se pouziva, kdyz je v cache smazany obrazek, aby ho to natahlo znovu
+readerApp.directive('qngError', function() {
+	return {
+		compile: function($element, attr) {
+			console.log("----------------------------- compile");
+			var fn = $parse(attr['ng-error']);
+			return function(scope, element, attr) {
+	            element.on('error', function(event) {
+	              scope.$apply(function() {
+	                fn(scope, {$event:event});
+	              });
+	            });
+	        };
+	    }
+	};
+});
+

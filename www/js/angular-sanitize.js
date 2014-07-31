@@ -450,6 +450,12 @@ function htmlSanitizeWriter(buf, uriValidator){
             out('"');
           }
         });
+        
+        // jpv eyrie - pridani onError na obrazky
+        if (tag === 'img') {
+     	  out(' onerror="missingImgText(event)"');
+        }
+               
         out(unary ? '/>' : '>');
       }
     },
