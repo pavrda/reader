@@ -56,7 +56,9 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 	    		console.log('controller::select article 1');
 				tx.executeSql('SELECT id,title FROM category', [], querySuccess1, dbService.errorDB);
 	    		tx.executeSql(
-					'SELECT id, txt, image, title, date_pub, icon, visited FROM article WHERE category_id=? ORDER BY date_pub' + 
+					'SELECT id, txt, image, title, date_pub, icon, visited FROM article WHERE category_id=? ' +
+						(($scope.catId == "aktualne")?"AND date_pub>date() ":"") +
+						'ORDER BY date_pub' + 
 						(($scope.catId == "aktualne")?"":" DESC"),
 					[ $scope.catId ],
 					querySuccess2,
