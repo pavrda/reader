@@ -117,7 +117,7 @@ readerApp.factory('dbService', ['$http', '$location', '$timeout', '$rootScope', 
 		if (loaderCounter >= loader.length) return stazenoOk();
 		if (showStatus) {
 			if (lastStatus < new Date().getTime() - 1000 ) {
-//0731				window.plugins.spinnerDialog.show("", "Načítám (" + loaderCounter + "/" + loader.length + ") ...");
+				window.plugins.spinnerDialog.show("", "Načítám (" + loaderCounter + "/" + loader.length + ") ...");
 				lastStatus = new Date().getTime();
 			}
 		}
