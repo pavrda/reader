@@ -76,9 +76,10 @@ readerApp.filter('datumTermin', function() {
 	return function(input) {
 		if (!input) return "";
 		try {
-			var dd = eval(input.substr(8,2));
-			var mm = eval(input.substr(5,2));
-			var yyyy = input.substr(0,4);
+			var d = new Date(input);
+			var dd = d.getDate();
+			var mm = d.getMonth() + 1;
+			var yyyy = d.getFullYear();
 			return dd + "." + mm + "." + yyyy;
 		} catch (e) {
 			return "";
