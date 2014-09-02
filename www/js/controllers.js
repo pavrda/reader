@@ -264,6 +264,8 @@ readerApp.controller('novinkyController', [ '$scope', 'dbService', '$q', '$timeo
 		
 		// vola se, kdyz se smaze cache a musim nahravat obrazky znovu
 		$scope.missingImg = function(e) {
+			console.log("on error");
+
 			var el = e.currentTarget;
 			if (el.eyrietag) return; // abych se neopakoval
 			el.eyrietag = 1;
