@@ -2,6 +2,9 @@
  * @license AngularJS v1.2.15
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
+ * 
+ * Upravy pro EYRIE by pavrda
+ * 
  */
 (function(window, document, undefined) {'use strict';
 
@@ -18318,9 +18321,10 @@ var ngControllerDirective = [function() {
  *
  * Events that are handled via these handler are always configured not to propagate further.
  */
+// jpv eyrie pridan "error" aby to delalo ng-error direktivu
 var ngEventDirectives = {};
 forEach(
-  'click dblclick mousedown mouseup mouseover mouseout mousemove mouseenter mouseleave keydown keyup keypress submit focus blur copy cut paste'.split(' '),
+  'click dblclick error mousedown mouseup mouseover mouseout mousemove mouseenter mouseleave keydown keyup keypress submit focus blur copy cut paste'.split(' '),
   function(name) {
     var directiveName = directiveNormalize('ng-' + name);
     ngEventDirectives[directiveName] = ['$parse', function($parse) {
